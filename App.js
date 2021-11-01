@@ -1,11 +1,11 @@
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { useFonts } from "expo-font";
 import AppLoading from "expo-app-loading";
-import Index from "./src/screens/Index";
+import { TabNavigation } from "./src/components/TabNavigation";
+import { enableScreens } from "react-native-screens";
 
-const Stack = createNativeStackNavigator();
+enableScreens(true);
 
 const App = () => {
   const [fontLoaded] = useFonts({
@@ -26,9 +26,7 @@ const App = () => {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Wallet App" component={Index} />
-      </Stack.Navigator>
+      <TabNavigation />
     </NavigationContainer>
   );
 };
