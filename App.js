@@ -2,7 +2,7 @@ import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { useFonts } from "expo-font";
 import AppLoading from "expo-app-loading";
-import { TabNavigation } from "./src/components/TabNavigation";
+import { TabNavigation } from "./src/navigators/TabNavigation";
 import { enableScreens } from "react-native-screens";
 
 enableScreens(true);
