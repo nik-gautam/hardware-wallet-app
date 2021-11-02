@@ -1,10 +1,14 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Button } from "react-native";
 
-const Send = () => {
+const SendScreen = ({ navigation }) => {
   return (
     <View style={styles.screen}>
       <Text> Send Screen </Text>
+      <Button
+        title="Continue"
+        onPress={() => navigation.navigate("FeeScreen")}
+      />
     </View>
   );
 };
@@ -17,4 +21,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Send;
+export default SendScreen;
