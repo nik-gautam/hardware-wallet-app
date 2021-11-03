@@ -2,7 +2,6 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import React from "react";
 import Home from "../screens/Home";
 import Receive from "../screens/Receive";
-import SendScreen from "../screens/send/SendScreen";
 import Settings from "../screens/Settings";
 import SendNavigation from "./SendNavigation";
 import { Entypo } from "@expo/vector-icons";
