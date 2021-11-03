@@ -28,9 +28,15 @@ const RadioButton = () => {
           )}
         </TouchableOpacity>
 
-        <Text style={styles.radioLevel}> High </Text>
+        <View style={styles.radioLevel}>
+          <Text> High </Text>
+          <Text> 2 - 3 mins </Text>
+        </View>
 
-        <Text style={styles.radioText}> $0.00001 </Text>
+        <View style={styles.radioText}>
+          <Text> 0.0001 ETH </Text>
+          <Text> $10 </Text>
+        </View>
       </View>
     </View>
   );
@@ -44,31 +50,32 @@ const styles = StyleSheet.create({
   radioButton: {
     flex: 1,
     flexDirection: "row",
+    alignItems: "center",
     justifyContent: "space-around",
 
     marginTop: 10,
     marginBottom: 10,
   },
   radioIcon: {
-    flex: 1,
-    width: 30,
-    height: 30,
-    // position: "absolute",
-    // left: 0,
+    // flex: 1,
+    // width: 30,
+    // height: 30,
+    position: "absolute",
+    left: 0,
   },
   radioLevel: {
-    flex: 2,
-    width: 40,
-    height: 20,
-    // position: "absolute",
-    // left: 0,
+    // flex: 2,
+    // width: 40,
+    // height: 20,
+    position: "absolute",
+    left: 40,
   },
   radioText: {
-    flex: 3,
-    width: 40,
-    height: 20,
-    // position: "absolute",
-    // right: 0,
+    // flex: 3,
+    // width: 40,
+    // height: 20,
+    position: "absolute",
+    right: 0,
   },
 });
 
