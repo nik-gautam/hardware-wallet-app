@@ -9,35 +9,63 @@ import {
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
-const RadioButton = () => {
-  let [isSelected, setSelected] = useState(false);
+const RadioButton = ({ setFeeLevel }) => {
+  let [isSelected, setSelected] = useState([false, true, false]);
+
+  let levels = [
+    {
+      id: 1,
+      name: "High",
+      time: 15,
+      fee: 0.000042,
+    },
+    {
+      id: 2,
+      name: "Medium",
+      time: 30,
+      fee: 0.000032,
+    },
+    {
+      id: 3,
+      name: "Low",
+      time: 45,
+      fee: 0.000021,
+    },
+  ];
 
   return (
     <View style={styles.container}>
-      <View styles={styles.radioButton}>
-        <TouchableOpacity
-          style={styles.radioIcon}
-          onPress={() => {
-            setSelected(!isSelected);
-          }}
-        >
-          {isSelected ? (
-            <Ionicons name="radio-button-on" size={30} />
-          ) : (
-            <Ionicons name="radio-button-off" size={30} />
-          )}
-        </TouchableOpacity>
+      {levels.map((level) => (
+        <View key={level.id} styles={styles.radioButton}>
+          <TouchableOpacity
+            style={styles.radioIcon}
+            onPress={() => {
+              let change = [false, false, false];
 
-        <View style={styles.radioLevel}>
-          <Text> High </Text>
-          <Text> 2 - 3 mins </Text>
-        </View>
+              change[level.id - 1] = true;
 
-        <View style={styles.radioText}>
-          <Text> 0.0001 ETH </Text>
-          <Text> $10 </Text>
+              setFeeLevel(level);
+              setSelected(change);
+            }}
+          >
+            {isSelected[level.id - 1] ? (
+              <Ionicons name="radio-button-on" size={30} />
+            ) : (
+              <Ionicons name="radio-button-off" size={30} />
+            )}
+          </TouchableOpacity>
+
+          <View style={styles.radioLevel}>
+            <Text> {level.name} </Text>
+            <Text> {"< " + level.time} secs </Text>
+          </View>
+
+          <View style={styles.radioText}>
+            <Text> {level.fee} ETH </Text>
+            <Text> $10 </Text>
+          </View>
         </View>
-      </View>
+      ))}
     </View>
   );
 };
@@ -55,12 +83,14 @@ const styles = StyleSheet.create({
 
     marginTop: 10,
     marginBottom: 10,
+
+    padding: 20,
   },
   radioIcon: {
     // flex: 1,
     // width: 30,
     // height: 30,
-    position: "absolute",
+    position: "relative",
     left: 0,
   },
   radioLevel: {
