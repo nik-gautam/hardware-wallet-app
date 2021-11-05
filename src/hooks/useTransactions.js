@@ -80,8 +80,8 @@ export default () => {
 
     const searchTransactions = async(searchTerm) => {
         try {
-            let temp = transactions.filter(trans => {
-                return trans.name.match(searchTerm);
+            let temp = transactions.filter((trans) => {
+                return trans.name.toLowerCase().match(searchTerm.toLowerCase());
             });
             setResults(temp);
         } catch (err) {

@@ -1,12 +1,5 @@
 import React, { useState } from "react";
-import {
-  View,
-  StyleSheet,
-  ScrollView,
-  TextInput,
-  TouchableOpacity,
-  FlatList,
-} from "react-native";
+import { View, StyleSheet, TouchableOpacity, FlatList } from "react-native";
 import Transaction from "../components/Transaction";
 import SearchBar from "../components/SearchBar";
 import { StatusBar } from "expo-status-bar";
@@ -37,10 +30,8 @@ const Home = () => {
         </View>
       </View>
 
-      <View>
-        <Text h4 style={styles.transactionsTitle}>
-          Transactions
-        </Text>
+      <View style={styles.searchBar}>
+        <Text style={styles.transactionsTitle}>Transactions</Text>
         <SearchBar
           search={search}
           onTermChange={updateSearch}
@@ -54,6 +45,7 @@ const Home = () => {
         style={styles.transactions}
         data={results}
         keyExtractor={(result) => result.id}
+        showsVerticalScrollIndicator={false}
         renderItem={({ item }) => {
           return (
             <TouchableOpacity>
@@ -70,7 +62,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginHorizontal: 10,
-    marginTop: 35,
+    marginTop: 50,
+    marginLeft: 20,
+    marginRight: 20,
     // borderColor: "black",
     // borderWidth: 1,
   },
@@ -78,6 +72,10 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     marginVertical: 4,
+  },
+  searchBar: {
+    marginTop: 10,
+    marginBottom: 15,
   },
   rupee: {
     fontSize: 16,
@@ -100,7 +98,10 @@ const styles = StyleSheet.create({
     backgroundColor: Colours.Blue,
   },
   transactionsTitle: {
-    marginBottom: 5,
+    fontFamily: "inter-bold",
+    marginBottom: 10,
+    fontWeight: "600",
+    fontSize: 25,
   },
   transactions: {},
 });

@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
   radioLevelName: {
-    fontFamily: "inter-medium",
+    fontFamily: "inter-regular",
     fontSize: 16,
     fontWeight: "normal",
   },

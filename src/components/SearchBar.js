@@ -25,10 +25,10 @@ const SearchBar = ({ search, onTermChange, onTermSubmit }) => {
 const styles = StyleSheet.create({
   searchBar: {
     borderWidth: 1,
-    borderColor: Colours.Neutral_6,
+    borderColor: Colours.Neutral_5,
     borderRadius: 5,
     flexDirection: "row",
-    padding: 5,
+    padding: 10,
   },
   searchBox: {
     // borderWidth: 1,
