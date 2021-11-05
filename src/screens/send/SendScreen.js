@@ -75,6 +75,7 @@ const styles = StyleSheet.create({
     marginTop: 15,
     marginBottom: 15,
     padding: 5,
+    width: "100%",
   },
   addressTitle: {
     fontFamily: "inter-medium",
@@ -82,7 +83,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
   },
   addressInput: {
-    width: 340,
+    width: "100%",
     marginTop: 10,
     padding: 10,
     borderColor: Colours.Neutral_5,
@@ -93,6 +94,7 @@ const styles = StyleSheet.create({
     marginTop: 15,
     marginBottom: 15,
     padding: 5,
+    width: "100%",
   },
   amountText: {
     fontFamily: "inter-medium",
@@ -100,12 +102,12 @@ const styles = StyleSheet.create({
     fontSize: 15,
   },
   amountInput: {
-    width: 340,
     marginTop: 10,
     padding: 10,
     borderColor: Colours.Neutral_5,
     borderWidth: 1,
     borderRadius: 5,
+    width: "100%",
   },
   amountRemaining: {
     fontFamily: "inter-light",

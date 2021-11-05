@@ -11,7 +11,15 @@ const Stack = createNativeStackNavigator();
 
 const SendNavigation = () => {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator
+      screenOptions={{
+        title: "Back",
+        headerTitleStyle: {
+          fontFamily: "inter-regular",
+          fontSize: 18,
+        },
+      }}
+    >
       <Stack.Screen
         name="SendScreen"
         component={SendScreen}

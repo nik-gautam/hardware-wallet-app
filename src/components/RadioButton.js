@@ -37,7 +37,7 @@ const RadioButton = ({ setFeeLevel }) => {
   return (
     <View style={styles.container}>
       {levels.map((level) => (
-        <View key={level.id} styles={styles.radioButton}>
+        <View key={level.id} style={styles.radioButton}>
           <TouchableOpacity
             style={styles.radioIcon}
             onPress={() => {
@@ -55,15 +55,25 @@ const RadioButton = ({ setFeeLevel }) => {
               <Ionicons name="radio-button-off" size={30} />
             )}
           </TouchableOpacity>
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-between",
+              flex: 1,
+            }}
+          >
+            <View style={styles.radioLevel}>
+              <Text style={styles.radioLevelName}> {level.name} </Text>
+              <Text style={styles.radioLevelTime}>
+                {" "}
+                {"< " + level.time} secs{" "}
+              </Text>
+            </View>
 
-          <View style={styles.radioLevel}>
-            <Text> {level.name} </Text>
-            <Text> {"< " + level.time} secs </Text>
-          </View>
-
-          <View style={styles.radioText}>
-            <Text> {level.fee} ETH </Text>
-            <Text> $10 </Text>
+            <View style={styles.radioText}>
+              <Text style={styles.radioLevelName}> {level.fee} ETH </Text>
+              <Text style={styles.radioLevelAmount}> $10 </Text>
+            </View>
           </View>
         </View>
       ))}
@@ -75,42 +85,57 @@ const styles = StyleSheet.create({
   container: {
     marginTop: 30,
     marginBottom: 80,
+
+    borderTopColor: Colours.Neutral_3,
+    borderTopWidth: 1,
   },
   radioButton: {
-    backgroundColor: Colours.Blue,
-    flex: 1,
+    display: "flex",
+    alignItems: "center",
     flexDirection: "row",
-    // alignItems: "center",
-    // justifyContent: "space-around",
-
     marginTop: 10,
     marginBottom: 10,
+    paddingBottom: 20,
 
-    padding: 20,
-
-    // position: "absolute",
+    borderBottomColor: Colours.Neutral_3,
+    borderBottomWidth: 1,
   },
   radioIcon: {
-    // backgroundColor: Colours.Green,
     // flex: 1,
     // width: 30,
     // height: 30,
-    position: "relative",
-    left: 0,
+    //left: 0,
   },
   radioLevel: {
     // flex: 2,
     // width: 40,
     // height: 20,
-    position: "absolute",
-    left: 40,
+    //left: 40,
+    marginLeft: 10,
+  },
+  radioLevelName: {
+    fontFamily: "inter-medium",
+    fontSize: 16,
+    fontWeight: "normal",
+  },
+  radioLevelTime: {
+    fontFamily: "inter-extra-light",
+    fontSize: 12,
+    fontWeight: "normal",
+    color: Colours.Neutral_7,
+  },
+  radioLevelAmount: {
+    fontFamily: "inter-extra-light",
+    fontSize: 12,
+    fontWeight: "normal",
+    color: Colours.Neutral_7,
+    textAlign: "right",
   },
   radioText: {
     // flex: 3,
     // width: 40,
     // height: 20,
-    position: "absolute",
-    right: 0,
+    //right: 0,
   },
 });
 
