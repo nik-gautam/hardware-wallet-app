@@ -74,38 +74,43 @@ const styles = StyleSheet.create({
   container: {
     marginTop: 30,
     marginBottom: 80,
+    borderColor:'black',
+    borderWidth:1
   },
   radioButton: {
-    flex: 1,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-around",
+    borderColor:'red',
+    borderWidth:10,
+    // flex: 1,
+    // flexDirection: "row",
+    // alignItems: "center",
+    // justifyContent: "space-around",
 
-    marginTop: 10,
-    marginBottom: 10,
+    // marginTop: 10,
+    // marginBottom: 10,
 
-    padding: 20,
+    // padding: 20,
+  
   },
   radioIcon: {
     // flex: 1,
     // width: 30,
     // height: 30,
-    position: "relative",
-    left: 0,
+    // position: "relative",
+    // left: 0,
   },
   radioLevel: {
     // flex: 2,
     // width: 40,
     // height: 20,
-    position: "absolute",
-    left: 40,
+    // position: "absolute",
+    // left: 40,
   },
   radioText: {
     // flex: 3,
     // width: 40,
     // height: 20,
-    position: "absolute",
-    right: 0,
+    // position: "absolute",
+    // right: 0,
   },
 });
 

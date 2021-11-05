@@ -6,7 +6,7 @@ import { Colours } from "../../assets/colours/Colours";
 const Transaction = ({ data }) => {
   const { name, imageURL, date, cryptoAmount, rupeeAmount } = data;
 
-//   console.log(data);
+  //   console.log(data);
   return (
     <View style={styles.row}>
       <Image source={{ uri: imageURL }} style={styles.image} />
@@ -52,22 +52,23 @@ const styles = StyleSheet.create({
     color: "black",
   },
   image: {
+    flex: 1,
     height: 50,
     width: 50,
-    flex: 1,
-    // borderWidth:1,
-    // borderColor:'red'
+    // borderWidth: 1,
+    // borderColor: "red",
   },
   detailsAmount: {
     flex: 1.5,
-    // borderWidth:1,
-    // borderColor:'blue'
+    alignItems: "flex-end",
+    // borderWidth: 1,
+    // borderColor: "blue",
   },
   detailsNameDate: {
     flex: 6,
-    // borderWidth:1,
-    // borderColor:'green',
     padding: 5,
+    // borderWidth: 1,
+    // borderColor: "green",
   },
 });
 
