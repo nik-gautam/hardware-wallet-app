@@ -8,6 +8,7 @@ import {
   Pressable,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { Colours } from "../../assets/colours/Colours";
 
 const RadioButton = ({ setFeeLevel }) => {
   let [isSelected, setSelected] = useState([false, true, false]);
@@ -76,17 +77,21 @@ const styles = StyleSheet.create({
     marginBottom: 80,
   },
   radioButton: {
+    backgroundColor: Colours.Blue,
     flex: 1,
     flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-around",
+    // alignItems: "center",
+    // justifyContent: "space-around",
 
     marginTop: 10,
     marginBottom: 10,
 
     padding: 20,
+
+    // position: "absolute",
   },
   radioIcon: {
+    // backgroundColor: Colours.Green,
     // flex: 1,
     // width: 30,
     // height: 30,
