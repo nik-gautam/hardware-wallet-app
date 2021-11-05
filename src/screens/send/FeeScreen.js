@@ -13,7 +13,7 @@ const FeeScreen = ({ navigation }) => {
 
   return (
     <View style={styles.screen}>
-      <Text> Fee Screen </Text>
+      <Text style={styles.title}> Adjust Fee </Text>
 
       <RadioButton setFeeLevel={setFeeLevel} />
 
@@ -38,6 +38,12 @@ const styles = StyleSheet.create({
     padding: 20,
     // justifyContent: "center",
     // alignItems: "center",
+  },
+  title: {
+    fontFamily: "inter-bold",
+    fontWeight: "600",
+    color: Colours.Black,
+    fontSize: 25,
   },
   continueButton: {
     position: "absolute",
