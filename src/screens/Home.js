@@ -18,15 +18,12 @@ const Home = () => {
     <View style={styles.container}>
       <View style={styles.wallet}>
         <StatusBar style="auto" />
-        <Text h4 style={styles.walletName}>
-          Wallet name
-        </Text>
+        <Text style={styles.walletName}>Wallet name</Text>
         <View style={styles.balance}>
           <Text style={styles.crypto}>ETH 1.62402785</Text>
         </View>
         <View style={styles.balance}>
-          <FontAwesome name="rupee" size={16} color="white" />
-          <Text style={styles.rupee}>7645060.27</Text>
+          <Text style={styles.rupee}>&#8377; 7645060.27</Text>
         </View>
       </View>
 
@@ -72,24 +69,32 @@ const styles = StyleSheet.create({
     marginVertical: 4,
   },
   searchBar: {
-    marginTop: 10,
+    marginTop: 20,
     marginBottom: 15,
   },
   rupee: {
-    fontSize: 16,
+    fontFamily: "inter-regular",
+    fontWeight: "400",
+    fontSize: 15,
     marginLeft: 8,
     color: "white",
   },
   crypto: {
     fontSize: 24,
+    marginTop: 10,
+    fontFamily: "inter-medium",
+    fontWeight: "600",
     color: "white",
   },
   walletName: {
     color: "white",
+    fontFamily: "inter-regular",
+    fontWeight: "400",
+    fontSize: 15,
     marginVertical: 5,
   },
   wallet: {
-    borderRadius: 25,
+    borderRadius: 15,
     marginBottom: 10,
     padding: 15,
     backgroundColor: Colours.Blue,
