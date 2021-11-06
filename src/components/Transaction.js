@@ -17,7 +17,7 @@ const Transaction = ({ data }) => {
 
       <View style={styles.detailsAmount}>
         <View style={styles.amount}>
-          <Text style={styles.crypto}> &#8383; {cryptoAmount}</Text>
+          <Text style={styles.crypto}>ETH {cryptoAmount}</Text>
         </View>
         <View style={styles.amount}>
           <Text style={styles.rupee}> &#8377; {rupeeAmount}</Text>
@@ -55,14 +55,14 @@ const styles = StyleSheet.create({
     fontSize: 12,
   },
   image: {
-    flex: 1,
+    flex: 2,
     height: 50,
     width: 50,
     // borderWidth: 1,
     // borderColor: "red",
   },
   detailsAmount: {
-    flex: 1.5,
+    flex: 3,
     alignItems: "flex-end",
     // borderWidth: 1,
     // borderColor: "blue",

@@ -3,7 +3,12 @@ import { View, Text, StyleSheet, Button, Pressable } from "react-native";
 import { Colours } from "../../../assets/colours/Colours";
 import RadioButton from "../../components/RadioButton";
 
-const FeeScreen = ({ navigation }) => {
+const FeeScreen = ({ navigation, route }) => {
+  let data = {
+    amount: route.params.amount,
+    address: route.params.address,
+  };
+
   let [feeLevel, setFeeLevel] = useState({
     id: 2,
     name: "Medium",
@@ -18,14 +23,14 @@ const FeeScreen = ({ navigation }) => {
       <RadioButton setFeeLevel={setFeeLevel} />
 
       <Text>
-        {" "}
-        Selected: {feeLevel.name} ----- {feeLevel.fee} ETH{" "}
+        Selected: {feeLevel.name} ----- {feeLevel.fee} ETH
       </Text>
 
       <Pressable
         style={styles.continueButton}
-        onPress={() => navigation.navigate("SummaryScreen")}
-      >
+        onPress={() => {
+          navigation.navigate("SummaryScreen", { ...data, feeLevel });
+        }}>
         <Text style={styles.continueButtonText}> Continue </Text>
       </Pressable>
     </View>

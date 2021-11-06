@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -10,6 +10,12 @@ import {
 import { Colours } from "../../../assets/colours/Colours";
 
 const SendScreen = ({ navigation }) => {
+  const [address, setAddress] = useState("");
+  const [validAddress, setValidAddress] = useState(true);
+
+  const [amount, setAmount] = useState("");
+  const [validAmount, setValidAmount] = useState(true);
+
   return (
     <View style={styles.screen}>
       <Text style={styles.title}> Send Ethereum </Text>
@@ -20,23 +26,35 @@ const SendScreen = ({ navigation }) => {
         <TextInput
           style={styles.addressInput}
           placeholder="Enter Address"
-          editable
+          value={address}
+          onChangeText={setAddress}
+          onEndEditing={() => {
+            isNaN(address) ? setValidAddress(false) : setValidAddress(true);
+          }}
         />
+        {validAddress ? null : (
+          <Text style={styles.errorMessage}>Enter a valid address!</Text>
+        )}
       </View>
 
       <View style={styles.amount}>
         <Text style={styles.amountText}> Amount </Text>
 
-        <Text style={styles.amountRemaining}>
-          {" "}
-          Balance Remaining: 0.01 ETH{" "}
-        </Text>
+        <Text style={styles.amountRemaining}>Balance Remaining: 0.01 ETH</Text>
 
         <TextInput
           style={styles.amountInput}
           placeholder="Enter Amount"
-          editable
+          value={amount}
+          onChangeText={setAmount}
+          onEndEditing={() => {
+            isNaN(amount) ? setValidAmount(false) : setValidAmount(true);
+          }}
         />
+
+        {validAmount ? null : (
+          <Text style={styles.errorMessage}>Enter a valid amount!</Text>
+        )}
       </View>
 
       {/* <Button
@@ -47,8 +65,23 @@ const SendScreen = ({ navigation }) => {
 
       <Pressable
         style={styles.continueButton}
-        onPress={() => navigation.navigate("FeeScreen")}
-      >
+        onPress={() => {
+          if (
+            isNaN(address) ||
+            isNaN(amount) ||
+            address === "" ||
+            amount === ""
+          ) {
+            isNaN(address) || address === ""
+              ? setValidAddress(false)
+              : setValidAddress(true);
+            isNaN(amount) || amount === ""
+              ? setValidAmount(false)
+              : setValidAmount(true);
+          } else {
+            navigation.navigate("FeeScreen", { address, amount });
+          }
+        }}>
         <Text style={styles.continueButtonText}> Continue </Text>
       </Pressable>
     </View>
@@ -135,6 +168,10 @@ const styles = StyleSheet.create({
     fontWeight: "400",
     fontSize: 15,
     color: Colours.Neutral_1,
+  },
+  errorMessage: {
+    color: "red",
+    fontSize: 14,
   },
 });
 

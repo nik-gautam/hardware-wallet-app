@@ -13,6 +13,7 @@ const Home = () => {
   const [searchTransactions, results, errorMessage] = useTransactions();
 
   console.log("RESULTS --> " + results.length);
+
   return (
     <View style={styles.container}>
       <View style={styles.wallet}>
@@ -21,8 +22,7 @@ const Home = () => {
           Wallet name
         </Text>
         <View style={styles.balance}>
-          <FontAwesome name="bitcoin" size={24} color="white" />
-          <Text style={styles.crypto}>1.62402785</Text>
+          <Text style={styles.crypto}>ETH 1.62402785</Text>
         </View>
         <View style={styles.balance}>
           <FontAwesome name="rupee" size={16} color="white" />
@@ -61,10 +61,8 @@ const Home = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginHorizontal: 10,
+    marginHorizontal: 15,
     marginTop: 50,
-    marginLeft: 20,
-    marginRight: 20,
     // borderColor: "black",
     // borderWidth: 1,
   },
@@ -79,12 +77,11 @@ const styles = StyleSheet.create({
   },
   rupee: {
     fontSize: 16,
-    marginLeft: 7,
+    marginLeft: 8,
     color: "white",
   },
   crypto: {
     fontSize: 24,
-    marginLeft: 7,
     color: "white",
   },
   walletName: {

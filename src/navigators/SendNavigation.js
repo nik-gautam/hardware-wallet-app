@@ -1,6 +1,4 @@
 import React from "react";
-import { View, Text } from "react-native";
-
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import SendScreen from "../screens/send/SendScreen";
 import FeeScreen from "../screens/send/FeeScreen";
@@ -18,8 +16,7 @@ const SendNavigation = () => {
           fontFamily: "inter-regular",
           fontSize: 18,
         },
-      }}
-    >
+      }}>
       <Stack.Screen
         name="SendScreen"
         component={SendScreen}

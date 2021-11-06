@@ -47,8 +47,7 @@ const RadioButton = ({ setFeeLevel }) => {
 
               setFeeLevel(level);
               setSelected(change);
-            }}
-          >
+            }}>
             {isSelected[level.id - 1] ? (
               <Ionicons name="radio-button-on" size={30} />
             ) : (
@@ -60,19 +59,18 @@ const RadioButton = ({ setFeeLevel }) => {
               flexDirection: "row",
               justifyContent: "space-between",
               flex: 1,
-            }}
-          >
+            }}>
             <View style={styles.radioLevel}>
               <Text style={styles.radioLevelName}> {level.name} </Text>
               <Text style={styles.radioLevelTime}>
-                {" "}
-                {"< " + level.time} secs{" "}
+                {"< " + level.time}
+                secs
               </Text>
             </View>
 
             <View style={styles.radioText}>
-              <Text style={styles.radioLevelName}> {level.fee} ETH </Text>
-              <Text style={styles.radioLevelAmount}> $10 </Text>
+              <Text style={styles.radioLevelName}>ETH {level.fee}</Text>
+              <Text style={styles.radioLevelAmount}> &#8377; 10 </Text>
             </View>
           </View>
         </View>
