@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet, TouchableOpacity } from "react-native";
+import { View, StyleSheet, TouchableOpacity, Pressable } from "react-native";
 import { Text } from "react-native-elements";
 import { FontAwesome } from "@expo/vector-icons";
 import { Colours } from "../../../assets/colours/Colours";
@@ -7,35 +7,37 @@ import { Colours } from "../../../assets/colours/Colours";
 const TransactionCompleteScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
-      <View>
+      <View style={styles.transactionMessage}>
         <View style={styles.iconBackground}>
           <FontAwesome name="send" size={24} color="white" />
         </View>
-        <Text h4 style={styles.title}>
-          Transaction complete!
-        </Text>
+        <Text style={styles.title}>Transaction complete!</Text>
         <Text style={styles.text}>
           It usually takes about 30 minutes for a transaction to be finalized.
         </Text>
       </View>
 
       <View style={styles.buttonGroup}>
-        <TouchableOpacity
+        <Pressable
           style={[styles.button, styles.transaction]}
           onPress={() => {
             navigation.popToTop();
             navigation.navigate("Home");
-          }}>
-          <Text>View transaction</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
+          }}
+        >
+          <Text style={[styles.buttonText, { color: Colours.Black }]}>
+            View transaction
+          </Text>
+        </Pressable>
+        <Pressable
           style={[styles.button, styles.home]}
           onPress={() => {
             navigation.popToTop();
             navigation.navigate("Home");
-          }}>
-          <Text>Done</Text>
-        </TouchableOpacity>
+          }}
+        >
+          <Text style={styles.buttonText}>Done</Text>
+        </Pressable>
       </View>
     </View>
   );
@@ -49,8 +51,11 @@ const styles = StyleSheet.create({
     // borderWidth: 1,
     // borderColor: "black",
   },
+  transactionMessage: {
+    marginBottom: 200,
+  },
   iconBackground: {
-    backgroundColor: "green",
+    backgroundColor: Colours.Green,
     alignSelf: "center",
     padding: 15,
     borderRadius: 50,
@@ -59,16 +64,24 @@ const styles = StyleSheet.create({
     marginTop: 40,
     marginVertical: 20,
     textAlign: "center",
+    fontFamily: "inter-bold",
+    fontWeight: "600",
+    color: Colours.Black,
+    fontSize: 25,
   },
   text: {
     textAlign: "center",
+    fontFamily: "inter-light",
+    fontSize: 15,
+    color: Colours.Neutral_6,
     marginHorizontal: 25,
   },
   button: {
     marginVertical: 10,
-    padding: 10,
+    padding: 15,
     alignItems: "center",
-    borderRadius: 15,
+    borderRadius: 5,
+    elevation: 5,
     // borderColor: "blue",
     // borderWidth: 1,
   },
@@ -81,9 +94,18 @@ const styles = StyleSheet.create({
   buttonGroup: {
     alignSelf: "center",
     marginBottom: 30,
-    width: 300,
+    position: "absolute",
+    bottom: 0,
+    width: "100%",
+
     // borderColor: "green",
     // borderWidth: 5,
+  },
+  buttonText: {
+    fontFamily: "inter-medium",
+    fontWeight: "400",
+    fontSize: 15,
+    color: Colours.Neutral_1,
   },
 });
 

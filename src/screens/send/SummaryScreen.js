@@ -1,6 +1,6 @@
 import moment from "moment";
 import React from "react";
-import { View, StyleSheet, Button } from "react-native";
+import { View, StyleSheet, Button, Pressable } from "react-native";
 import { Text } from "react-native-elements";
 import { Colours } from "../../../assets/colours/Colours";
 
@@ -17,9 +17,7 @@ const SummaryScreen = ({ navigation, route }) => {
   return (
     <View style={styles.container}>
       <View>
-        <Text h4 style={styles.title}>
-          Ready to send?
-        </Text>
+        <Text style={styles.title}>Ready to send?</Text>
 
         <View style={styles.row}>
           <Text style={styles.key}>To</Text>
@@ -44,12 +42,12 @@ const SummaryScreen = ({ navigation, route }) => {
         </View>
       </View>
 
-      <View style={styles.button}>
-        <Button
-          title="Send"
-          onPress={() => navigation.navigate("TransactionComplete")}
-        />
-      </View>
+      <Pressable
+        style={styles.continueButton}
+        onPress={() => navigation.navigate("TransactionComplete")}
+      >
+        <Text style={styles.continueButtonText}> Continue </Text>
+      </Pressable>
     </View>
   );
 };
@@ -58,13 +56,19 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginHorizontal: 15,
-    marginTop: 15,
+    // marginTop: 15,
     justifyContent: "space-between",
+    paddingTop: 20,
+    paddingHorizontal: 10,
     // borderWidth: 1,
     // borderColor: "black",
   },
   title: {
-    marginBottom: 10,
+    fontFamily: "inter-bold",
+    fontWeight: "600",
+    color: Colours.Black,
+    fontSize: 25,
+    marginBottom: 20,
   },
   row: {
     flexDirection: "row",
@@ -75,16 +79,39 @@ const styles = StyleSheet.create({
   },
   key: {
     flex: 1,
-    fontWeight: "bold",
+    fontFamily: "inter-medium",
+    fontSize: 15,
+    fontWeight: "400",
   },
   value: {
     flex: 3,
+    fontFamily: "inter-light",
+    fontSize: 15,
     textAlign: "right",
+    color: Colours.Neutral_7,
   },
-  button: {
-    marginBottom: 30,
-    // borderColor: "green",
-    // borderWidth: 5,
+  continueButton: {
+    position: "absolute",
+    bottom: 0,
+    left: 0,
+    right: 0,
+    padding: 15,
+    // width: 340,
+    // height: 30,
+    backgroundColor: Colours.Orange,
+    margin: 15,
+    marginBottom: 25,
+    borderRadius: 5,
+    elevation: 5,
+    flex: 1,
+    flexDirection: "column",
+    alignItems: "center",
+  },
+  continueButtonText: {
+    fontFamily: "inter-medium",
+    fontWeight: "400",
+    fontSize: 15,
+    color: Colours.Neutral_1,
   },
 });
 

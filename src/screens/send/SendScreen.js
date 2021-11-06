@@ -29,7 +29,7 @@ const SendScreen = ({ navigation }) => {
           value={address}
           onChangeText={setAddress}
           onEndEditing={() => {
-            isNaN(address) ? setValidAddress(false) : setValidAddress(true);
+            address == "" ? setValidAddress(false) : setValidAddress(true);
           }}
         />
         {validAddress ? null : (
@@ -66,12 +66,7 @@ const SendScreen = ({ navigation }) => {
       <Pressable
         style={styles.continueButton}
         onPress={() => {
-          if (
-            isNaN(address) ||
-            isNaN(amount) ||
-            address === "" ||
-            amount === ""
-          ) {
+          if (isNaN(amount) || address === "" || amount === "") {
             isNaN(address) || address === ""
               ? setValidAddress(false)
               : setValidAddress(true);
@@ -81,7 +76,8 @@ const SendScreen = ({ navigation }) => {
           } else {
             navigation.navigate("FeeScreen", { address, amount });
           }
-        }}>
+        }}
+      >
         <Text style={styles.continueButtonText}> Continue </Text>
       </Pressable>
     </View>
@@ -171,6 +167,7 @@ const styles = StyleSheet.create({
   },
   errorMessage: {
     color: "red",
+    fontFamily: "inter-regular",
     fontSize: 14,
   },
 });
