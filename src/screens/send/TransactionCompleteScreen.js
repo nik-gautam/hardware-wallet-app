@@ -11,20 +11,18 @@ const TransactionCompleteScreen = ({ navigation }) => {
         <View style={styles.iconBackground}>
           <FontAwesome name="send" size={24} color="white" />
         </View>
-        <Text style={styles.title}>Transaction complete!</Text>
+        <Text style={styles.title}> Transaction complete! </Text>
         <Text style={styles.text}>
           It usually takes about 30 minutes for a transaction to be finalized.
         </Text>
       </View>
-
       <View style={styles.buttonGroup}>
         <Pressable
           style={[styles.button, styles.transaction]}
           onPress={() => {
             navigation.popToTop();
             navigation.navigate("Home");
-          }}
-        >
+          }}>
           <Text style={[styles.buttonText, { color: Colours.Black }]}>
             View transaction
           </Text>
@@ -34,9 +32,8 @@ const TransactionCompleteScreen = ({ navigation }) => {
           onPress={() => {
             navigation.popToTop();
             navigation.navigate("Home");
-          }}
-        >
-          <Text style={styles.buttonText}>Done</Text>
+          }}>
+          <Text style={styles.buttonText}> Done </Text>
         </Pressable>
       </View>
     </View>
@@ -53,6 +50,8 @@ const styles = StyleSheet.create({
   },
   transactionMessage: {
     marginBottom: 200,
+    // borderWidth: 1,
+    // borderColor: "red",
   },
   iconBackground: {
     backgroundColor: Colours.Green,
@@ -97,7 +96,6 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: 0,
     width: "100%",
-
     // borderColor: "green",
     // borderWidth: 5,
   },
