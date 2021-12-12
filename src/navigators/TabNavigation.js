@@ -7,6 +7,10 @@ import SendNavigation from "./SendNavigation";
 import { Entypo } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
 import { Colours } from "../../assets/colours/Colours";
+import PinChoice from "../screens/wallet-pin/PinChoice";
+import EnterPin from "../screens/wallet-pin/EnterPin";
+import Cover from "../screens/onboarding/Cover";
+import CoverWithAccount from "../screens/onboarding/CoverWithAccount";
 
 const Tabs = createBottomTabNavigator();
 

@@ -98,6 +98,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     padding: 15,
     backgroundColor: Colours.Blue,
+    elevation: 15,
   },
   transactionsTitle: {
     fontFamily: "inter-bold",
