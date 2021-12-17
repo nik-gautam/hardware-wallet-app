@@ -4,7 +4,7 @@ import { Colours } from "../../../assets/colours/Colours";
 import WordCell from "../../components/WordCell";
 import SingleButtonFilled from "./../../components/SingleButtonFilled";
 
-const Validate = () => {
+const Validate = ({ navigation }) => {
   let words = [
     "gloom",
     "police",
@@ -44,7 +44,13 @@ const Validate = () => {
       </View>
 
       <Text>Pending screen...</Text>
-      <SingleButtonFilled text="Continue" style={styles.button} />
+      <SingleButtonFilled
+        text="Continue"
+        style={styles.button}
+        onPress={() => {
+          navigation.navigate("RecoveryComplete");
+        }}
+      />
     </View>
   );
 };
@@ -52,7 +58,7 @@ const Validate = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 70,
+    marginTop: 40,
     marginHorizontal: 15,
     borderWidth: 1,
     borderColor: "black",
