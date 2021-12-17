@@ -3,7 +3,7 @@ import { View, Text, StyleSheet } from "react-native";
 import { Colours } from "../../../assets/colours/Colours";
 import SingleButtonFilled from "./../../components/SingleButtonFilled";
 
-const Intro = () => {
+const Intro = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>First, let's create your recovery phrase</Text>
@@ -12,7 +12,14 @@ const Intro = () => {
         combination is unique to your wallet. Make sure to have pen and paper
         ready so you can write it down.
       </Text>
-      <SingleButtonFilled text="Continue" style={styles.button} />
+
+      <SingleButtonFilled
+        text="Continue"
+        style={styles.button}
+        onPress={() => {
+          navigation.navigate("RecoveryCopy");
+        }}
+      />
     </View>
   );
 };
@@ -32,7 +39,7 @@ const styles = StyleSheet.create({
     fontFamily: "inter-regular",
     fontSize: 18,
     marginBottom: 30,
-    color: Colours.Neutral_7
+    color: Colours.Neutral_7,
   },
   button: {},
 });

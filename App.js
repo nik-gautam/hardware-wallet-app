@@ -4,6 +4,7 @@ import { useFonts } from "expo-font";
 import AppLoading from "expo-app-loading";
 import { TabNavigation } from "./src/navigators/TabNavigation";
 import { enableScreens } from "react-native-screens";
+import RecoveryNavigator from "./src/navigators/RecoveryNavigator";
 
 enableScreens(true);
 
@@ -24,9 +25,12 @@ const App = () => {
     return <AppLoading />;
   }
 
+  let isLoggedIn = false;
+
   return (
     <NavigationContainer>
-      <TabNavigation />
+      {isLoggedIn ? <TabNavigation /> : <RecoveryNavigator />}
+      {/* <TabNavigation /> */}
     </NavigationContainer>
   );
 };

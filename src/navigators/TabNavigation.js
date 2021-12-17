@@ -16,6 +16,7 @@ import Copy from "../screens/recovery-phase/Copy";
 import ValidateIntro from "../screens/recovery-phase/ValidateIntro";
 import Validate from "../screens/recovery-phase/Validate";
 import WalletSetupSuccess from "../screens/wallet-pin/WalletSetupSuccess";
+// import RecoveryNavigator from "./RecoveryNavigator";
 
 const Tabs = createBottomTabNavigator();
 
@@ -28,7 +29,7 @@ export const TabNavigation = () => {
       }}>
       <Tabs.Screen
         name="Home"
-        component={Copy}
+        component={Home}
         options={{
           tabBarLabel: "Home",
           tabBarIcon: ({ color, size }) => (

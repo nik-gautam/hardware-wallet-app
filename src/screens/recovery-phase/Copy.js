@@ -4,7 +4,7 @@ import { Colours } from "../../../assets/colours/Colours";
 import WordCell from "../../components/WordCell";
 import SingleButtonFilled from "./../../components/SingleButtonFilled";
 
-const Copy = () => {
+const Copy = ({ navigation }) => {
   let words = [
     "gloom",
     "police",
@@ -44,7 +44,16 @@ const Copy = () => {
       </View>
 
       <Text>Pending screen...</Text>
-      <SingleButtonFilled text="Continue" style={styles.button} />
+
+      <SingleButtonFilled text="Download as PDF" style={styles.button} />
+
+      <SingleButtonFilled
+        text="Continue"
+        style={styles.button}
+        onPress={() => {
+          navigation.navigate("RecoveryValidateIntro");
+        }}
+      />
     </View>
   );
 };
@@ -52,7 +61,7 @@ const Copy = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 70,
+    marginTop:40,
     marginHorizontal: 15,
     borderWidth: 1,
     borderColor: "black",
