@@ -11,6 +11,11 @@ import PinChoice from "../screens/wallet-pin/PinChoice";
 import EnterPin from "../screens/wallet-pin/EnterPin";
 import Cover from "../screens/onboarding/Cover";
 import CoverWithAccount from "../screens/onboarding/CoverWithAccount";
+import Intro from "../screens/recovery-phase/Intro";
+import Copy from "../screens/recovery-phase/Copy";
+import ValidateIntro from "../screens/recovery-phase/ValidateIntro";
+import Validate from "../screens/recovery-phase/Validate";
+import WalletSetupSuccess from "../screens/wallet-pin/WalletSetupSuccess";
 
 const Tabs = createBottomTabNavigator();
 
@@ -23,7 +28,7 @@ export const TabNavigation = () => {
       }}>
       <Tabs.Screen
         name="Home"
-        component={Home}
+        component={Copy}
         options={{
           tabBarLabel: "Home",
           tabBarIcon: ({ color, size }) => (
