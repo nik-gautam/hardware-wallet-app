@@ -1,9 +1,15 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
 import { Colours } from "../../../assets/colours/Colours";
+import { setMnemonic } from "../../reducers/onboarding";
+
 import SingleButtonFilled from "./../../components/SingleButtonFilled";
 
 const Intro = ({ navigation }) => {
+  const dispath = useDispatch();
+  const { mnemonic } = useSelector((state) => state.onboarding);
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>First, let's create your recovery phrase</Text>
@@ -12,10 +18,12 @@ const Intro = ({ navigation }) => {
         combination is unique to your wallet. Make sure to have pen and paper
         ready so you can write it down.
       </Text>
+      <Text>{mnemonic}</Text>
       <SingleButtonFilled
         text="Continue"
         style={styles.button}
         onPress={() => {
+          // dispath(setMnemonic("hahahahhahahah"));
           navigation.navigate("RecoveryCopy");
         }}
       />
