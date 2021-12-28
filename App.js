@@ -1,4 +1,7 @@
+import "react-native-get-random-values";
+
 import "./shim";
+import "@ethersproject/shims";
 
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
@@ -7,29 +10,12 @@ import AppLoading from "expo-app-loading";
 import { TabNavigation } from "./src/navigators/TabNavigation";
 import { enableScreens } from "react-native-screens";
 import RecoveryNavigator from "./src/navigators/RecoveryNavigator";
-// import Web3 from "web3";
-// import HDWallet from "truffle-hdwallet-provider";
+import { Provider } from "react-redux";
+import store from "./src/store";
 
 enableScreens(true);
 
-// let address = "http://127.0.0.1:8545";
-// let mneumonic =
-//   "whisper raise toy come face deposit jump dad eager need hand erode";
-
-// const provider = new HDWallet(mneumonic, address);
-// const web3 = new Web3(provider);
-
-// let accounts;
-
-// const fillAddresses = async () => {
-//   accounts = await web3.eth.getAccounts();
-// };
-
 const App = () => {
-  // fillAddresses();
-
-  // console.log(accounts);
-
   const [fontLoaded] = useFonts({
     "inter-black": require("./assets/fonts/Inter-Black.ttf"),
     "inter-bold": require("./assets/fonts/Inter-Bold.ttf"),
@@ -49,11 +35,13 @@ const App = () => {
   let isLoggedIn = false;
 
   return (
-    <NavigationContainer>
-      {isLoggedIn ? <TabNavigation /> : <RecoveryNavigator />}
+    <Provider store={store}>
+      <NavigationContainer>
+        {isLoggedIn ? <TabNavigation /> : <RecoveryNavigator />}
 
-      {/* <TabNavigation /> */}
-    </NavigationContainer>
+        {/* <TabNavigation /> */}
+      </NavigationContainer>
+    </Provider>
   );
 };
 
