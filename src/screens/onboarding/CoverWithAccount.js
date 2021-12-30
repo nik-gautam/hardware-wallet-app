@@ -4,7 +4,7 @@ import { FontAwesome5 } from "@expo/vector-icons";
 import SingleButtonFilled from "../../components/SingleButtonFilled";
 import { Colours } from "../../../assets/colours/Colours";
 
-const CoverWithAccount = () => {
+const CoverWithAccount = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <View style={styles.upper}>
@@ -16,11 +16,20 @@ const CoverWithAccount = () => {
         />
         <Text style={styles.title}> Hardware Wallet </Text>
         <Text style={styles.description}>Welcome back.</Text>
-        <SingleButtonFilled text="Log in" />
+        <SingleButtonFilled
+          text="Log in"
+          onPress={() => navigation.navigate("EnterPin")}
+        />
       </View>
 
       <View style={styles.lower}>
-        <TouchableOpacity style={styles.resetWallet}>
+        <TouchableOpacity
+          style={styles.resetWallet}
+          onPress={() =>
+            navigation.navigate("RecoveryNavigator", {
+              screen: "RestoreIntro",
+            })
+          }>
           <Text style={styles.resetWalletText}> Reset wallet </Text>
         </TouchableOpacity>
       </View>

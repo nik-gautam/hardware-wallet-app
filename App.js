@@ -7,11 +7,11 @@ import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { useFonts } from "expo-font";
 import AppLoading from "expo-app-loading";
-import { TabNavigation } from "./src/navigators/TabNavigation";
 import { enableScreens } from "react-native-screens";
 import RecoveryNavigator from "./src/navigators/RecoveryNavigator";
 import { Provider } from "react-redux";
 import store from "./src/store";
+import OnboardNavigator from "./src/navigators/OnboardNavigator";
 
 enableScreens(true);
 
@@ -32,14 +32,12 @@ const App = () => {
     return <AppLoading />;
   }
 
-  let isLoggedIn = false;
+  let isLoggedIn = true;
 
   return (
     <Provider store={store}>
       <NavigationContainer>
-        {isLoggedIn ? <TabNavigation /> : <RecoveryNavigator />}
-
-        {/* <TabNavigation /> */}
+        {isLoggedIn ? <OnboardNavigator /> : <RecoveryNavigator />}
       </NavigationContainer>
     </Provider>
   );

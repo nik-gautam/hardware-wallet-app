@@ -1,34 +1,29 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet, FlatList } from "react-native";
 import { Colours } from "../../../assets/colours/Colours";
-import WordCell from "../../components/WordCell";
+import WordCellValidation from "../../components/WordCellValidation";
 import SingleButtonFilled from "./../../components/SingleButtonFilled";
+import { useDispatch, useSelector } from "react-redux";
+import { setError } from "../../reducers/onboarding";
 
-const Validate = ({ navigation }) => {
-  let words = [
-    "gloom",
-    "police",
-    "month",
-    "stamp",
-    "viable",
-    "claim",
-    "hospital",
-    "heart",
-    "alcohol",
-    "off",
-    "ocean",
-    "ghost",
-  ];
+const Validate = ({ navigation, route }) => {
+  const dispatch = useDispatch();
+  const { mnemonic, error, random } = useSelector((state) => state.onboarding);
+
+  let words = [...mnemonic];
+  words = shuffle(words, random);
+
+  const [title, setTitle] = useState("Tap the words in the correct order.");
+  const [status, setStatus] = useState(false); // for the continue button
+
+  useEffect(() => {
+    dispatch(setError(false));
+  }, []);
 
   return (
     <View style={styles.container}>
       <View style={styles.text}>
-        <Text style={styles.title}>This is your recovery phrase</Text>
-
-        <Text style={styles.description}>
-          Make sure to write it down as shown here. You have to verify this
-          later.
-        </Text>
+        <Text style={styles.title}>{title}</Text>
       </View>
 
       <View style={styles.wordsContainer}>
@@ -36,24 +31,59 @@ const Validate = ({ navigation }) => {
           style={styles.words}
           data={words}
           renderItem={({ item, index }) => (
-            <WordCell item={item} index={index} />
+            <WordCellValidation
+              item={item}
+              index={null}
+              setTitle={setTitle}
+              setStatus={setStatus}
+            />
           )}
           keyExtractor={(item, index) => index}
           numColumns={2}
         />
       </View>
 
-      <Text>Pending screen...</Text>
-      <SingleButtonFilled
-        text="Continue"
-        style={styles.button}
-        onPress={() => {
-          navigation.navigate("RecoveryComplete");
-        }}
-      />
+      {error ? (
+        <SingleButtonFilled
+          text="Retry"
+          style={styles.button}
+          onPress={() => {
+            navigation.navigate("RecoveryValidateIntro");
+          }}
+        />
+      ) : (
+        <SingleButtonFilled
+          text="Continue"
+          style={styles.button}
+          status={status}
+          onPress={() => {
+            navigation.navigate("WalletPinChoice");
+          }}
+        />
+      )}
     </View>
   );
 };
+
+function shuffle(array, random) {
+  let currentIndex = array.length,
+    randomIndex;
+
+  // While there remain elements to shuffle...
+  while (currentIndex != 0) {
+    // Pick a remaining element...
+    randomIndex = Math.floor(random * currentIndex);
+    currentIndex--;
+
+    // And swap it with the current element.
+    [array[currentIndex], array[randomIndex]] = [
+      array[randomIndex],
+      array[currentIndex],
+    ];
+  }
+
+  return array;
+}
 
 const styles = StyleSheet.create({
   container: {

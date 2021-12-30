@@ -7,7 +7,7 @@ import TransactionCompleteScreen from "../screens/send/TransactionCompleteScreen
 
 const Stack = createNativeStackNavigator();
 
-const SendNavigation = () => {
+const SendNavigator = () => {
   return (
     <Stack.Navigator
       screenOptions={{
@@ -32,4 +32,4 @@ const SendNavigation = () => {
   );
 };
 
-export default SendNavigation;
+export default SendNavigator;
