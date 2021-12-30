@@ -3,22 +3,12 @@ import { View, Text, StyleSheet, FlatList } from "react-native";
 import { Colours } from "../../../assets/colours/Colours";
 import WordCell from "../../components/WordCell";
 import SingleButtonFilled from "./../../components/SingleButtonFilled";
+import { useSelector } from "react-redux";
 
 const Copy = ({ navigation }) => {
-  let words = [
-    "gloom",
-    "police",
-    "month",
-    "stamp",
-    "viable",
-    "claim",
-    "hospital",
-    "heart",
-    "alcohol",
-    "off",
-    "ocean",
-    "ghost",
-  ];
+  const { mnemonic } = useSelector((state) => state.onboarding);
+
+  let words = mnemonic;
 
   return (
     <View style={styles.container}>
@@ -42,8 +32,6 @@ const Copy = ({ navigation }) => {
           numColumns={2}
         />
       </View>
-
-      <Text>Pending screen...</Text>
 
       <SingleButtonFilled text="Download as PDF" style={styles.button} />
 

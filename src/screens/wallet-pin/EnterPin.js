@@ -1,9 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Text, StyleSheet, TextInput } from "react-native";
+import { TouchableOpacity } from "react-native-gesture-handler";
 import { Colours } from "../../../assets/colours/Colours";
 import SingleButtonFilled from "../../components/SingleButtonFilled";
 
-const EnterPin = () => {
+const EnterPin = ({ navigation }) => {
+  const [pin, setPin] = useState("");
+
+  let onPress = () => {
+    // check PIN logic
+
+    navigation.navigate("TabNavigator", { screen: "Home" });
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Enter your PIN to log in</Text>
@@ -14,9 +23,11 @@ const EnterPin = () => {
         secureTextEntry={true}
         letterSpacing={15}
         maxLength={6}
+        value={pin}
+        onChangeText={setPin}
       />
 
-      <SingleButtonFilled text="Submit" />
+      <SingleButtonFilled text="Submit" onPress={onPress} />
     </View>
   );
 };

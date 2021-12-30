@@ -3,22 +3,28 @@ import { View, Text, StyleSheet } from "react-native";
 import { Colours } from "../../../assets/colours/Colours";
 import SingleButtonFilled from "./../../components/SingleButtonFilled";
 import { SimpleLineIcons } from "@expo/vector-icons";
+import { NavigationContainer } from "@react-navigation/native";
 
-const WalletSetupSuccess = () => {
+const WalletSetupSuccess = ({ navigation }) => {
   return (
     <View style={styles.container}>
-      <SimpleLineIcons name="check" size={72} color="green" style={styles.icon} />
+      <SimpleLineIcons
+        name="check"
+        size={72}
+        color="green"
+        style={styles.icon}
+      />
       <Text style={styles.title}>Your wallet is ready</Text>
       <Text style={styles.description}>
-        You should now have your recovery phrase and your wallet password
-        written down for future reference.
-      </Text>
-      <Text style={styles.description}>
-        Your wallet is still empty, so your next step might be to receive
-        Bitcoin from somebody.
+        You should now have your recovery phrase and your wallet PIN written
+        down for future reference.
       </Text>
 
-      <SingleButtonFilled text="Continue" style={styles.button} />
+      <SingleButtonFilled
+        text="Continue"
+        style={styles.button}
+        onPress={() => navigation.navigate("EnterPin")}
+      />
     </View>
   );
 };
@@ -33,7 +39,7 @@ const styles = StyleSheet.create({
     fontFamily: "inter-semi-bold",
     fontSize: 21,
     marginBottom: 15,
-    textAlign:'center'
+    textAlign: "center",
   },
   description: {
     fontFamily: "inter-regular",
@@ -42,10 +48,10 @@ const styles = StyleSheet.create({
     color: Colours.Neutral_7,
   },
   button: {},
-  icon:{
-      marginBottom:20,
-      alignSelf:'center'
-  }
+  icon: {
+    marginBottom: 20,
+    alignSelf: "center",
+  },
 });
 
 export default WalletSetupSuccess;

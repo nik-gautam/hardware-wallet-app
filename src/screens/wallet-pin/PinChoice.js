@@ -3,7 +3,13 @@ import { View, Text, StyleSheet, TextInput } from "react-native";
 import { Colours } from "../../../assets/colours/Colours";
 import SingleButtonFilled from "../../components/SingleButtonFilled";
 
-const PinChoice = () => {
+const PinChoice = ({ navigation }) => {
+  let onPress = () => {
+    // check PIN logic
+
+    navigation.navigate("WalletSetupSuccess");
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Choose your PIN</Text>
@@ -30,7 +36,7 @@ const PinChoice = () => {
         maxLength={6}
       />
 
-      <SingleButtonFilled text="Submit" />
+      <SingleButtonFilled text="Submit" onPress={onPress} />
     </View>
   );
 };

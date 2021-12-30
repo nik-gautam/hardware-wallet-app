@@ -6,24 +6,30 @@ import { useDispatch, useSelector } from "react-redux";
 import { setMnemonic } from "../../reducers/onboarding";
 import getTransactions from "../../api/getTransactions";
 
-const Intro = ({ navigation }) => {
+const RestoreError = ({ navigation }) => {
   // const dispatch = useDispatch();
   // const { mnemonic } = useSelector((state) => state.onboarding);
   // console.log(getTransactions());
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>First, let's create your recovery phrase</Text>
+      <Text style={styles.title}>Restore Wallet</Text>
+      <Text style={styles.description}>Something went wrong!</Text>
       <Text style={styles.description}>
-        A recovery phrase is a series of 12 words in a specific order. This word
-        combination is unique to your wallet. Make sure to have pen and paper
-        ready so you can write it down.
+        Please re-confirm whether the recovery phase provided is correct.
       </Text>
 
       <SingleButtonFilled
-        text="Continue"
+        text="Login"
         style={styles.button}
         onPress={() => {
-          navigation.navigate("RecoveryCopy");
+          navigation.navigate("Onboarding", { screen: "CoverWithAccount" });
+        }}
+      />
+      <SingleButtonFilled
+        text="Main Menu"
+        style={styles.button}
+        onPress={() => {
+          navigation.navigate("Cover");
         }}
       />
     </View>
@@ -50,4 +56,4 @@ const styles = StyleSheet.create({
   button: {},
 });
 
-export default Intro;
+export default RestoreError;
