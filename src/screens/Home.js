@@ -7,10 +7,13 @@ import { FontAwesome } from "@expo/vector-icons";
 import { Text } from "react-native-elements";
 import { Colours } from "../../assets/colours/Colours";
 import useTransactions from "../hooks/useTransactions";
+import { useSelector } from "react-redux";
 
 const Home = () => {
   const [search, updateSearch] = useState("");
   const [searchTransactions, results, errorMessage] = useTransactions();
+
+  const { balance, address } = useSelector((state) => state.wallet);
 
   console.log("RESULTS --> " + results.length);
 
@@ -18,13 +21,13 @@ const Home = () => {
     <View style={styles.container}>
       <View style={styles.wallet}>
         <StatusBar style="auto" />
-        <Text style={styles.walletName}>Wallet name</Text>
+        <Text style={styles.walletName}>{address}</Text>
         <View style={styles.balance}>
-          <Text style={styles.crypto}>ETH 1.62402785</Text>
+          <Text style={styles.crypto}>ETH {balance}</Text>
         </View>
-        <View style={styles.balance}>
+        {/* <View style={styles.balance}>
           <Text style={styles.rupee}>&#8377; 7645060.27</Text>
-        </View>
+        </View> */}
       </View>
 
       <View style={styles.searchBar}>

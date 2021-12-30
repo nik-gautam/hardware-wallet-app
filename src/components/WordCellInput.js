@@ -52,10 +52,10 @@ const WordCellInput = ({
   //   };
 
   let onChange = async (index, value) => {
-    console.log(index + " --> " + value);
+    // console.log(index + " --> " + value);
 
     await changeSequence(index, value);
-    console.log(inputSequence);
+    // console.log(inputSequence);
 
     let flag = true;
     inputSequence.forEach((word) => {

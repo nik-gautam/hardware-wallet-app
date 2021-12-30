@@ -4,12 +4,18 @@ import { Colours } from "../../../assets/colours/Colours";
 import SingleButtonFilled from "./../../components/SingleButtonFilled";
 import { useDispatch, useSelector } from "react-redux";
 import { setMnemonic } from "../../reducers/onboarding";
-import getTransactions from "../../api/getTransactions";
+import { createWallet } from "../../reducers/wallet";
 
 const Intro = ({ navigation }) => {
-  // const dispatch = useDispatch();
-  // const { mnemonic } = useSelector((state) => state.onboarding);
-  // console.log(getTransactions());
+  const dispatch = useDispatch();
+  // const { provider } = useSelector((state) => state.wallet);
+
+  const onPress = () => {
+    // dispatch(createWallet());
+
+    navigation.navigate("RecoveryCopy");
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>First, let's create your recovery phrase</Text>
@@ -22,9 +28,7 @@ const Intro = ({ navigation }) => {
       <SingleButtonFilled
         text="Continue"
         style={styles.button}
-        onPress={() => {
-          navigation.navigate("RecoveryCopy");
-        }}
+        onPress={() => onPress()}
       />
     </View>
   );
