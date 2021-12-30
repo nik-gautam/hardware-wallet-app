@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import getTransactions from '../api/getTransactions';
 
 export default () => {
     const [results, setResults] = useState([]);

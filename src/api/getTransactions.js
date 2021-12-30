@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 const getTransactions = async() => {
     let module = "account";
     let action = "txlist";

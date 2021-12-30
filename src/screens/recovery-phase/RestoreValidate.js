@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet, FlatList } from "react-native";
+import { View, Text, StyleSheet, FlatList ,ScrollView} from "react-native";
 import { Colours } from "../../../assets/colours/Colours";
 import SingleButtonFilled from "./../../components/SingleButtonFilled";
 import { useDispatch, useSelector } from "react-redux";
@@ -48,7 +48,7 @@ const RestoreValidate = ({ navigation, route }) => {
         </Text>
       </View>
 
-      <View style={styles.wordsContainer}>
+      <ScrollView style={styles.wordsContainer}>
         <FlatList
           style={styles.words}
           data={words}
@@ -64,7 +64,7 @@ const RestoreValidate = ({ navigation, route }) => {
           keyExtractor={(item, index) => index}
           numColumns={2}
         />
-      </View>
+      </ScrollView>
 
       <SingleButtonFilled
         text="Continue"

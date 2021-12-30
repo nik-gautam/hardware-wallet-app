@@ -90,12 +90,12 @@ const styles = StyleSheet.create({
     flex: 1,
     marginTop: 40,
     marginHorizontal: 15,
-    borderWidth: 1,
-    borderColor: "black",
+    // borderWidth: 1,
+    // borderColor: "black",
   },
   text: {
-    borderColor: "green",
-    borderWidth: 1,
+    // borderColor: "green",
+    // borderWidth: 1,
   },
   title: {
     fontFamily: "inter-semi-bold",
@@ -110,8 +110,8 @@ const styles = StyleSheet.create({
   },
   wordsContainer: {
     flex: 1,
-    borderColor: "red",
-    borderWidth: 1,
+    // borderColor: "red",
+    // borderWidth: 1,
   },
   words: {},
   button: {},
