@@ -3,12 +3,17 @@ import { View, Text, StyleSheet, FlatList } from "react-native";
 import { Colours } from "../../../assets/colours/Colours";
 import WordCell from "../../components/WordCell";
 import SingleButtonFilled from "./../../components/SingleButtonFilled";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setMnemonic } from "../../reducers/onboarding";
 
 const Copy = ({ navigation }) => {
-  const { mnemonic } = useSelector((state) => state.onboarding);
+  // const { mnemonic } = useSelector((state) => state.onboarding);
+  const dispatch = useDispatch();
+  const { mnemonic } = useSelector((state) => state.wallet);
 
   let words = mnemonic;
+
+  console.log(words);
 
   return (
     <View style={styles.container}>
@@ -39,6 +44,8 @@ const Copy = ({ navigation }) => {
         text="Continue"
         style={styles.button}
         onPress={() => {
+          dispatch(setMnemonic(mnemonic));
+
           navigation.navigate("RecoveryValidateIntro");
         }}
       />
@@ -51,12 +58,13 @@ const styles = StyleSheet.create({
     flex: 1,
     marginTop: 40,
     marginHorizontal: 15,
-    borderWidth: 1,
-    borderColor: "black",
+    // borderWidth: 1,
+    // borderColor: "black",
   },
   text: {
-    borderColor: "green",
-    borderWidth: 1,
+    // borderColor: "green",
+    // borderWidth: 1,
+    marginHorizontal: 10,
   },
   title: {
     fontFamily: "inter-semi-bold",
@@ -71,8 +79,9 @@ const styles = StyleSheet.create({
   },
   wordsContainer: {
     flex: 1,
-    borderColor: "red",
-    borderWidth: 1,
+    marginHorizontal: 5,
+    // borderColor: "red",
+    // borderWidth: 1,
   },
   words: {},
   button: {},

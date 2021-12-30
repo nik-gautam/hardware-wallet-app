@@ -1,16 +1,24 @@
 import React, { useState } from "react";
 import { View, Text, StyleSheet, TextInput } from "react-native";
+import bcrypt from "react-native-bcrypt/dist/bcrypt";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { useSelector } from "react-redux";
 import { Colours } from "../../../assets/colours/Colours";
 import SingleButtonFilled from "../../components/SingleButtonFilled";
 
 const EnterPin = ({ navigation }) => {
   const [pin, setPin] = useState("");
+  const [isError, setIsError] = useState(false);
+  const { pinHash, pin: varPin } = useSelector((state) => state.pin);
 
   let onPress = () => {
-    // check PIN logic
+    let match = bcrypt.compareSync(pin, pinHash);
 
-    navigation.navigate("TabNavigator", { screen: "Home" });
+    if (match === false) {
+      setIsError(true);
+    } else {
+      navigation.navigate("TabNavigator", { screen: "Home" });
+    }
   };
 
   return (
@@ -26,6 +34,8 @@ const EnterPin = ({ navigation }) => {
         value={pin}
         onChangeText={setPin}
       />
+
+      {isError && <Text style={styles.errorMessage}>Pins don't match!</Text>}
 
       <SingleButtonFilled text="Submit" onPress={onPress} />
     </View>
@@ -53,6 +63,11 @@ const styles = StyleSheet.create({
     textAlign: "center",
     textAlignVertical: "center",
     marginBottom: 30,
+  },
+  errorMessage: {
+    color: "red",
+    fontFamily: "inter-regular",
+    fontSize: 14,
   },
 });
 
