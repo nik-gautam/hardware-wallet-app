@@ -3,31 +3,21 @@ import React from "react";
 import Home from "../screens/Home";
 import Receive from "../screens/Receive";
 import Settings from "../screens/Settings";
-import SendNavigation from "./SendNavigation";
+import SendNavigation from "./SendNavigator";
 import { Entypo } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
 import { Colours } from "../../assets/colours/Colours";
-import PinChoice from "../screens/wallet-pin/PinChoice";
-import EnterPin from "../screens/wallet-pin/EnterPin";
-import Cover from "../screens/onboarding/Cover";
-import CoverWithAccount from "../screens/onboarding/CoverWithAccount";
-import Intro from "../screens/recovery-phase/Intro";
-import Copy from "../screens/recovery-phase/Copy";
-import ValidateIntro from "../screens/recovery-phase/ValidateIntro";
-import Validate from "../screens/recovery-phase/Validate";
-import WalletSetupSuccess from "../screens/wallet-pin/WalletSetupSuccess";
 // import RecoveryNavigator from "./RecoveryNavigator";
 
 const Tabs = createBottomTabNavigator();
 
-export const TabNavigation = () => {
+export const TabNavigator = () => {
   return (
     <Tabs.Navigator
       screenOptions={{
         headerShown: false,
         tabBarActiveTintColor: Colours.Orange,
-      }}
-    >
+      }}>
       <Tabs.Screen
         name="Home"
         component={Home}

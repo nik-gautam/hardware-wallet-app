@@ -4,7 +4,7 @@ import { FontAwesome5 } from "@expo/vector-icons";
 import SingleButtonFilled from "../../components/SingleButtonFilled";
 import { Colours } from "../../../assets/colours/Colours";
 
-const Cover = () => {
+const Cover = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <FontAwesome5
@@ -17,8 +17,14 @@ const Cover = () => {
       <Text style={styles.description}>
         A simple bitcoin wallet for your enjoyment.
       </Text>
-      <SingleButtonFilled text="Create a new wallet" />
-      <TouchableOpacity style={styles.restoreWallet}>
+      <SingleButtonFilled
+        text="Create a new wallet"
+        onPress={() => navigation.navigate("RecoveryIntro")}
+      />
+      <TouchableOpacity
+        style={styles.restoreWallet}
+        onPress={()=>navigation.navigate("RestoreIntro")}
+        >
         <Text style={styles.restoreWalletText}>Restore existing wallet</Text>
       </TouchableOpacity>
     </View>

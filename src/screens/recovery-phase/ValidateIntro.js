@@ -1,9 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { Colours } from "../../../assets/colours/Colours";
 import SingleButtonFilled from "./../../components/SingleButtonFilled";
+import { useDispatch } from "react-redux";
+import { setInputSequence, setRandom } from "../../reducers/onboarding";
 
 const ValidateIntro = ({ navigation }) => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(setInputSequence([]));
+    dispatch(setRandom());
+  }, []);
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Let's double-check</Text>

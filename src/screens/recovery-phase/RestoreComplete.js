@@ -13,12 +13,8 @@ const ValidationComplete = ({ navigation }) => {
         </View>
         <Text style={styles.title}> Wallet restored! </Text>
         <Text style={styles.text}>
-          You should now have your recovery phrase and your wallet password
-          written down for future reference.
-        </Text>
-        <Text style={[styles.text, { marginTop: 5 }]}>
-          Your wallet is still empty, so your next step might be to receive
-          Ether from somebody.
+          You should now have your recovery phrase and your wallet PIN written
+          down for future reference.
         </Text>
       </View>
       <View style={styles.buttonGroup}>
@@ -37,9 +33,8 @@ const ValidationComplete = ({ navigation }) => {
           style={[styles.button, styles.home]}
           onPress={() => {
             navigation.popToTop();
-            navigation.navigate("TabNavigator", {screen: "Home"});
-          }}
-        >
+            navigation.navigate("EnterPin");
+          }}>
           <Text style={styles.buttonText}> Go to Home </Text>
         </Pressable>
       </View>
