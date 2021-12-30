@@ -31,7 +31,7 @@ const SummaryScreen = ({ navigation, route }) => {
 
         <View style={styles.row}>
           <Text style={styles.key}>Fee</Text>
-          <Text style={styles.value}>{data.feeLevel.fee} ETH</Text>
+          <Text style={styles.value}>{data.feeLevel.fee} Gwei</Text>
         </View>
 
         <View style={styles.row}>
