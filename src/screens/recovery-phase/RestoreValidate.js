@@ -38,7 +38,7 @@ const RestoreValidate = ({ navigation, route }) => {
 
     console.log(userMnemonic);
 
-    // dispatch(restoreWallet(userMnemonic));
+    dispatch(restoreWallet(userMnemonic));
 
     // IF VALID THEN NAVIGATE
     navigation.navigate("WalletPinChoice");
