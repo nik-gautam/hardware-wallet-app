@@ -5,12 +5,15 @@ import { formatEther } from "ethers/lib/utils";
 export const createWallet = createAsyncThunk(
   "wallet/createWallet",
   async () => {
-    let provider = new providers.JsonRpcProvider("http://127.0.0.1:8545");
+    let infProvider = new providers.InfuraProvider(
+      "rinkeby",
+      "3e8d5ea043604fef803f00d2f9687057"
+    );
     let newWallet = Wallet.createRandom();
 
-    newWallet = newWallet.connect(provider);
+    newWallet = newWallet.connect(infProvider);
 
-    // console.log(newWallet.mnemonic);
+    console.log(newWallet);
 
     let newAddress = await newWallet.getAddress();
 
@@ -24,12 +27,16 @@ export const createWallet = createAsyncThunk(
 export const restoreWallet = createAsyncThunk(
   "wallet/restoreWallet",
   async (mnemonic) => {
-    let provider = new providers.JsonRpcProvider("http://127.0.0.1:8545");
-    let newWallet = Wallet.fromMnemonic(mnemonic);
-
-    newWallet = newWallet.connect(provider);
-
     try {
+      let infProvider = new providers.InfuraProvider(
+        "rinkeby",
+        "3e8d5ea043604fef803f00d2f9687057"
+      );
+      // let provider = new providers.JsonRpcProvider("http://127.0.0.1:8545");
+      let newWallet = Wallet.fromMnemonic(mnemonic);
+
+      newWallet = newWallet.connect(infProvider);
+
       let address = await newWallet.getAddress();
       let balance = await newWallet.getBalance();
 
@@ -38,7 +45,7 @@ export const restoreWallet = createAsyncThunk(
       return {
         wallet: newWallet,
         address,
-        balance: "0",
+        balance: formatEther(balance),
       };
     } catch (error) {
       console.log(error);
@@ -79,7 +86,7 @@ const walletSlice = createSlice({
       sendTransaction: false,
     },
     wallet: null,
-    provider: new providers.JsonRpcProvider("http://127.0.0.1:8545"),
+    // provider: new providers.JsonRpcProvider("http://127.0.0.1:8545"),
     address: "",
     mnemonic: [],
     isLoggedIn: false,
@@ -96,6 +103,9 @@ const walletSlice = createSlice({
       state.isLoggedIn = false;
       state.balance = 0;
       state.lastTxn = "";
+    },
+    setIsLoggedIn(state, action) {
+      state.isLoggedIn = true;
     },
   },
   extraReducers: (builder) => {
@@ -118,7 +128,7 @@ const walletSlice = createSlice({
 
         state.address = action.payload.address;
         // state.isLoggedIn = true;
-        // state.balance = action.payload.balance;
+        state.balance = action.payload.balance;
         state.wallet = action.payload.wallet;
 
         state.loading.restoreWallet = false;
@@ -138,6 +148,6 @@ const walletSlice = createSlice({
 
 const { actions, reducer } = walletSlice;
 
-export const { removeWallet } = actions;
+export const { setIsLoggedIn, removeWallet } = actions;
 
 export default reducer;

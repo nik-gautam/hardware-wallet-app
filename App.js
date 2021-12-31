@@ -13,10 +13,14 @@ import { Provider, useSelector } from "react-redux";
 import store from "./src/store";
 import OnboardNavigator from "./src/navigators/OnboardNavigator";
 import Main from "./src/Main";
+import { persistStore } from "redux-persist";
+import { PersistGate } from "redux-persist/integration/react";
 
 enableScreens(true);
 
 const App = () => {
+  let persistor = persistStore(store);
+
   const [fontLoaded] = useFonts({
     "inter-black": require("./assets/fonts/Inter-Black.ttf"),
     "inter-bold": require("./assets/fonts/Inter-Bold.ttf"),
@@ -35,7 +39,9 @@ const App = () => {
 
   return (
     <Provider store={store}>
-      <Main />
+      <PersistGate loading={null} persistor={persistor}>
+        <Main />
+      </PersistGate>
     </Provider>
   );
 };

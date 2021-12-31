@@ -13,9 +13,9 @@ const Home = () => {
   const [search, updateSearch] = useState("");
   const [searchTransactions, results, errorMessage] = useTransactions();
 
-  const { balance, address } = useSelector((state) => state.wallet);
+  const { isLoggedIn, balance, address } = useSelector((state) => state.wallet);
 
-  console.log("RESULTS --> " + results.length);
+  console.log("isLoggedIn", isLoggedIn);
 
   return (
     <View style={styles.container}>
