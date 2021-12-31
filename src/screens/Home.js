@@ -16,6 +16,7 @@ const Home = () => {
   const { balance, address } = useSelector((state) => state.wallet);
 
   console.log("RESULTS --> " + results.length);
+  console.log(results);
 
   return (
     <View style={styles.container}>

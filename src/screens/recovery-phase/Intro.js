@@ -11,7 +11,7 @@ const Intro = ({ navigation }) => {
   // const { provider } = useSelector((state) => state.wallet);
 
   const onPress = () => {
-    // dispatch(createWallet());
+    dispatch(createWallet());
 
     navigation.navigate("RecoveryCopy");
   };
