@@ -14,42 +14,42 @@ import { useGetGasPriceQuery } from "../apis/etherscan";
 const RadioButton = ({ setFeeLevel }) => {
   let [isSelected, setSelected] = useState([false, true, false]);
 
-  const { data, isLoading, isError } = useGetGasPriceQuery();
+  // const { data, isLoading, isError } = useGetGasPriceQuery();
 
-  if (isError) {
-    return (
-      <View style={styles.container}>
-        <Text> Error in Getting Gas Price </Text>
-      </View>
-    );
-  }
+  // if (isError) {
+  //   return (
+  //     <View style={styles.container}>
+  //       <Text> Error in Getting Gas Price </Text>
+  //     </View>
+  //   );
+  // }
 
-  if (isLoading) {
-    return (
-      <View style={styles.container}>
-        <Text> Loading.... </Text>
-      </View>
-    );
-  }
+  // if (isLoading) {
+  //   return (
+  //     <View style={styles.container}>
+  //       <Text> Loading.... </Text>
+  //     </View>
+  //   );
+  // }
 
   let levels = [
     {
       id: 1,
       name: "High",
       time: 15,
-      fee: data["FastGasPrice"],
+      fee: 2.000001,
     },
     {
       id: 2,
       name: "Medium",
       time: 30,
-      fee: data["ProposeGasPrice"],
+      fee: 1.500001,
     },
     {
       id: 3,
       name: "Low",
       time: 45,
-      fee: data["SafeGasPrice"],
+      fee: 1.000001,
     },
   ];
 

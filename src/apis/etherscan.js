@@ -28,9 +28,17 @@ export const etherscanApi = createApi({
         return rawResult.result;
       },
     }),
+    getUSD: builder.query({
+      query: () =>
+        `?module=stats&action=ethprice&apikey=${keys.ETHERSCAN_API_KEY}`,
+      transformResponse: (rawResult, meta) => {
+        return rawResult.result;
+      },
+    }),
   }),
 });
 
 // console.log(etherscanApi);
 
-export const { useGetTransactionsQuery, useGetGasPriceQuery } = etherscanApi;
+export const { useGetTransactionsQuery, useGetGasPriceQuery, useGetUSDQuery } =
+  etherscanApi;
