@@ -46,6 +46,7 @@ export const restoreWallet = createAsyncThunk(
         wallet: newWallet,
         address,
         balance: formatEther(balance),
+        mnemonic,
       };
     } catch (error) {
       console.log(error);
@@ -55,25 +56,46 @@ export const restoreWallet = createAsyncThunk(
 
 export const sendTransaction = createAsyncThunk(
   "wallet/sendTransaction",
-  async ({ receiver, amount, gas, wallet, provider }) => {
-    let gas_limit = "0x100000";
-    let send_address = await wallet.getAddress();
+  async ({ receiver, amount, gas, mnemonic }) => {
+    try {
+      let infProvider = new providers.InfuraProvider(
+        "rinkeby",
+        "3e8d5ea043604fef803f00d2f9687057"
+      );
 
-    const tx = {
-      from: send_address,
-      to: receiver,
-      value: utils.parseEther(amount.toString()),
-      nonce: await provider.getTransactionCount(send_address, "latest"),
-      gasLimit: utils.hexlify(gas_limit),
-      gasPrice: gas * 1000,
-    };
+      let wallet = Wallet.fromMnemonic(mnemonic);
 
-    const transaction = await wallet.sendTransaction(tx);
+      wallet = wallet.connect(infProvider);
 
-    return {
-      success: true,
-      transaction,
-    };
+      let gas_limit = "0x100000";
+      let send_address = await wallet.getAddress();
+
+      let gas_price = await infProvider.getGasPrice();
+
+      let fee_price = await infProvider.getFeeData();
+
+      console.log(gas_price.toString(), gas);
+
+      const tx = {
+        from: send_address,
+        to: receiver,
+        value: utils.parseEther(amount),
+        nonce: await infProvider.getTransactionCount(send_address, "latest"),
+        gasLimit: 21000,
+        gasPrice: gas * 1e9,
+      };
+
+      const transaction = await wallet.sendTransaction(tx);
+
+      console.log(transaction);
+
+      return {
+        success: true,
+        transaction,
+      };
+    } catch (error) {
+      console.log(error);
+    }
   }
 );
 
@@ -130,6 +152,7 @@ const walletSlice = createSlice({
         // state.isLoggedIn = true;
         state.balance = action.payload.balance;
         state.wallet = action.payload.wallet;
+        state.mnemonic = action.payload.mnemonic.split(" ");
 
         state.loading.restoreWallet = false;
       })
@@ -137,6 +160,8 @@ const walletSlice = createSlice({
         console.log("Restore Failed");
       })
       .addCase(sendTransaction.pending, (state, action) => {
+        console.log("pending state");
+
         state.loading.sendTransaction = true;
       })
       .addCase(sendTransaction.fulfilled, (state, action) => {
