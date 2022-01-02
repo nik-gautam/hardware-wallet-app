@@ -8,10 +8,12 @@ import { Text } from "react-native-elements";
 import { Colours } from "../../assets/colours/Colours";
 import useTransactions from "../hooks/useTransactions";
 import { useSelector } from "react-redux";
+import TransactionNavigator from "../navigators/TransactionNavigator";
 
-const Home = () => {
+const Home = ({ navigation }) => {
   const [search, updateSearch] = useState("");
-  const [searchTransactions, results, errorMessage] = useTransactions();
+  const [searchTransactions, results, errorMessage, allTransactions] =
+    useTransactions();
 
   const { isLoggedIn, balance, address } = useSelector((state) => state.wallet);
 
@@ -21,7 +23,9 @@ const Home = () => {
     <View style={styles.container}>
       <View style={styles.wallet}>
         <StatusBar style="auto" />
-        <Text style={styles.walletName}>{address}</Text>
+        {/* <Text style={styles.walletBalanceTitle}>{address}</Text> */}
+        <Text style={styles.walletBalanceTitle}>Wallet Balance</Text>
+
         <View style={styles.balance}>
           <Text style={styles.crypto}>ETH {balance}</Text>
         </View>
@@ -44,11 +48,16 @@ const Home = () => {
       <FlatList
         style={styles.transactions}
         data={results}
-        keyExtractor={(result) => result.id}
+        keyExtractor={(result) => result.blockHash}
         showsVerticalScrollIndicator={false}
         renderItem={({ item }) => {
           return (
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate(TransactionNavigator, {
+                  screen: "TransactionDetail",
+                });
+              }}>
               <Transaction data={item} />
             </TouchableOpacity>
           );
@@ -83,17 +92,17 @@ const styles = StyleSheet.create({
     color: "white",
   },
   crypto: {
-    fontSize: 24,
+    fontSize: 18,
     marginTop: 10,
     fontFamily: "inter-medium",
     fontWeight: "600",
     color: "white",
   },
-  walletName: {
+  walletBalanceTitle: {
     color: "white",
     fontFamily: "inter-regular",
     fontWeight: "400",
-    fontSize: 15,
+    fontSize: 24,
     marginVertical: 5,
   },
   wallet: {

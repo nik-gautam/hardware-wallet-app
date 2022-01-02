@@ -5,6 +5,7 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import { useSelector } from "react-redux";
 import { Colours } from "../../../assets/colours/Colours";
 import SingleButtonFilled from "../../components/SingleButtonFilled";
+import isaac from "isaac";
 
 const EnterPin = ({ navigation }) => {
   const [pin, setPin] = useState("");
@@ -12,6 +13,12 @@ const EnterPin = ({ navigation }) => {
   const { pinHash, pin: varPin } = useSelector((state) => state.pin);
 
   let onPress = () => {
+    bcrypt.setRandomFallback((len) => {
+      const buf = new Uint8Array(len);
+
+      return buf.map(() => Math.floor(isaac.random() * 256));
+    });
+
     let match = bcrypt.compareSync(pin, pinHash);
 
     if (match === false) {

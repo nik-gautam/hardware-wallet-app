@@ -1,17 +1,26 @@
 import React from "react";
-import { View, Text, StyleSheet, Image } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { Colours } from "../../assets/colours/Colours";
+import { useNavigation } from "@react-navigation/native";
 
 const Transaction = ({ data }) => {
-  const { name, imageURL, date, cryptoAmount, rupeeAmount } = data;
+  const navigation = useNavigation();
+ 
+  const { from, timeStamp, value } = data;
 
-  //   console.log(data);
+  let fromAddress = from;
+  let date = timeStamp;
+  let cryptoAmount = value / 1e18;
+  // let rupeeAmount = ethToINR(value);
+  let rupeeAmount = value / 1e18;
+
   return (
-    <View style={styles.row}>
-      <Image source={{ uri: imageURL }} style={styles.image} />
-
-      <View style={styles.detailsNameDate}>
-        <Text style={styles.detailsName}>{name}</Text>
+    <View
+      style={styles.row}
+      // onPress={() => navigation.navigate("TransactionDetail", { data })}
+    >
+      <View style={styles.detailsAddressDate}>
+        <Text style={styles.detailsName}>{fromAddress}</Text>
         <Text style={styles.detailsDate}>{date}</Text>
       </View>
 
@@ -54,20 +63,13 @@ const styles = StyleSheet.create({
     fontFamily: "inter-light",
     fontSize: 12,
   },
-  image: {
-    flex: 2,
-    height: 50,
-    width: 50,
-    // borderWidth: 1,
-    // borderColor: "red",
-  },
   detailsAmount: {
     flex: 3,
     alignItems: "flex-end",
     // borderWidth: 1,
     // borderColor: "blue",
   },
-  detailsNameDate: {
+  detailsAddressDate: {
     flex: 6,
     padding: 5,
     // borderWidth: 1,
