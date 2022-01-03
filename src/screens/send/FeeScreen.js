@@ -22,16 +22,15 @@ const FeeScreen = ({ navigation, route }) => {
 
       <RadioButton setFeeLevel={setFeeLevel} />
 
-      <Text>
+      {/* <Text>
         Selected: {feeLevel.name} ----- {feeLevel.fee} Gwei
-      </Text>
+      </Text> */}
 
       <Pressable
         style={styles.continueButton}
         onPress={() => {
           navigation.navigate("SummaryScreen", { ...data, fee: feeLevel.fee });
-        }}
-      >
+        }}>
         <Text style={styles.continueButtonText}> Continue </Text>
       </Pressable>
     </View>

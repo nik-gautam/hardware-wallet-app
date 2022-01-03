@@ -1,24 +1,30 @@
 import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { Colours } from "../../assets/colours/Colours";
-import { useNavigation } from "@react-navigation/native";
+import moment from "moment";
+import { useGetUSDQuery } from "../apis/etherscan";
+import { useGetUSDtoINRQuery } from "../apis/currency";
+
+let roundOff = (num) => {
+  return Math.round((num + Number.EPSILON) * 100) / 100;
+};
 
 const Transaction = ({ data }) => {
-  const navigation = useNavigation();
- 
   const { from, timeStamp, value } = data;
 
   let fromAddress = from;
-  let date = timeStamp;
+  let date = moment.unix(timeStamp).format("llll");
+
   let cryptoAmount = value / 1e18;
-  // let rupeeAmount = ethToINR(value);
-  let rupeeAmount = value / 1e18;
+  let rupeeAmount = cryptoAmount;
+  // let rupeeAmount =
+  //   cryptoAmount *
+  //   useGetUSDQuery().data.ethusd *
+  //   useGetUSDtoINRQuery().data.USD_INR;
+  // rupeeAmount = roundOff(rupeeAmount);
 
   return (
-    <View
-      style={styles.row}
-      // onPress={() => navigation.navigate("TransactionDetail", { data })}
-    >
+    <View style={styles.row}>
       <View style={styles.detailsAddressDate}>
         <Text style={styles.detailsName}>{fromAddress}</Text>
         <Text style={styles.detailsDate}>{date}</Text>

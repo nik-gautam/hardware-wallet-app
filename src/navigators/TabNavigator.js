@@ -7,7 +7,7 @@ import SendNavigation from "./SendNavigator";
 import { Entypo } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
 import { Colours } from "../../assets/colours/Colours";
-// import RecoveryNavigator from "./RecoveryNavigator";
+import HomeNavigator from "./HomeNavigator";
 
 const Tabs = createBottomTabNavigator();
 
@@ -20,7 +20,7 @@ export const TabNavigator = () => {
       }}>
       <Tabs.Screen
         name="Home"
-        component={Home}
+        component={HomeNavigator}
         options={{
           tabBarLabel: "Home",
           tabBarIcon: ({ color, size }) => (

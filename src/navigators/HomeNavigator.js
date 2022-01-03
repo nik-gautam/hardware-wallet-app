@@ -1,11 +1,10 @@
 import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import Transaction from "../components/Transaction";
 import TransactionDetail from "../screens/TransactionDetail";
-
+import Home from "../screens/Home";
 const Stack = createNativeStackNavigator();
 
-const TransactionNavigator = () => {
+const HomeNavigator = () => {
   return (
     <Stack.Navigator
       screenOptions={{
@@ -15,10 +14,14 @@ const TransactionNavigator = () => {
           fontSize: 18,
         },
       }}>
-      <Stack.Screen name="Transaction" component={Transaction} />
+      <Stack.Screen
+        name="HomeScreen"
+        component={Home}
+        options={{ headerShown: false }}
+      />
       <Stack.Screen name="TransactionDetail" component={TransactionDetail} />
     </Stack.Navigator>
   );
 };
 
-export default TransactionNavigator;
+export default HomeNavigator;
