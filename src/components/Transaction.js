@@ -10,23 +10,40 @@ let roundOff = (num) => {
 };
 
 const Transaction = ({ data }) => {
-  const { from, timeStamp, value } = data;
+  const { to, timeStamp, value } = data;
 
-  let fromAddress = from;
+  let toAddress = to;
   let date = moment.unix(timeStamp).format("llll");
 
   let cryptoAmount = value / 1e18;
-  let rupeeAmount = cryptoAmount;
-  // let rupeeAmount =
-  //   cryptoAmount *
-  //   useGetUSDQuery().data.ethusd *
-  //   useGetUSDtoINRQuery().data.USD_INR;
-  // rupeeAmount = roundOff(rupeeAmount);
+
+  let {
+    data: ETH_USD,
+    isLoading: isLoading1,
+    isError: isError1,
+  } = useGetUSDQuery();
+  let {
+    data: USD_INR,
+    isLoading: isLoading2,
+    isError: isError2,
+  } = useGetUSDtoINRQuery();
+
+  if (isLoading1 || isLoading2) {
+    return <Text>Loading...</Text>;
+  } else if (isError1 || isError2) {
+    return <Text>Error occurred...</Text>;
+  }
+
+  ETH_USD = ETH_USD.ethusd;
+  USD_INR = USD_INR.USD_INR;
+
+  let rupeeAmount = cryptoAmount * ETH_USD * USD_INR;
+  rupeeAmount = roundOff(rupeeAmount);
 
   return (
     <View style={styles.row}>
       <View style={styles.detailsAddressDate}>
-        <Text style={styles.detailsName}>{fromAddress}</Text>
+        <Text style={styles.detailsName}>{toAddress}</Text>
         <Text style={styles.detailsDate}>{date}</Text>
       </View>
 

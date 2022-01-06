@@ -1,10 +1,13 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
-import { useSelector } from "react-redux";
+import { View, Text, StyleSheet, NativeModules } from "react-native";
+import { useSelector, useDispatch } from "react-redux";
 import { Colours } from "../../assets/colours/Colours";
+import { removeWallet } from "../reducers/wallet";
+import SingleButtonFilled from "./../components/SingleButtonFilled";
 
 const Settings = ({ navigation }) => {
   const { isLoggedIn } = useSelector((state) => state.wallet);
+  const dispatch = useDispatch();
 
   return (
     <View style={styles.container}>
@@ -14,6 +17,24 @@ const Settings = ({ navigation }) => {
         <Text style={styles.attribute}>Logged in</Text>
         {isLoggedIn == true ? <Text>true</Text> : <Text>false</Text>}
       </View>
+
+      <SingleButtonFilled
+        text="Log out"
+        onPress={() => {
+          dispatch(removeWallet());
+          // navigation.popToTop();
+          // navigation.navigate("RecoveryNavigator", {
+          //   screen: "Cover",
+          // });
+          // navigation.setOptions({
+          //   tabBarVisible: false
+          // });
+      
+          // navigation.navigate("RN", { screen: "Cover" });
+          // CodePush.restartApp();
+          NativeModules.DevSettings.reload();
+        }}
+      />
     </View>
   );
 };
