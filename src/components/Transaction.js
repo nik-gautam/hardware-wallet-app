@@ -21,24 +21,31 @@ const Transaction = ({ data }) => {
     data: ETH_USD,
     isLoading: isLoading1,
     isError: isError1,
+    error: error1,
   } = useGetUSDQuery();
   let {
     data: USD_INR,
     isLoading: isLoading2,
     isError: isError2,
+    error: error2,
   } = useGetUSDtoINRQuery();
 
   if (isLoading1 || isLoading2) {
     return <Text>Loading...</Text>;
   } else if (isError1 || isError2) {
+    console.log("===== error 1 ======");
+    console.log(error1);
+
+    console.log("===== error 2 ======");
+    console.log(error2);
+
     return <Text>Error occurred...</Text>;
   }
 
   ETH_USD = ETH_USD.ethusd;
-  USD_INR = USD_INR.USD_INR;
+  USD_INR = USD_INR.rates.INR;
 
-  let rupeeAmount = cryptoAmount * ETH_USD * USD_INR;
-  rupeeAmount = roundOff(rupeeAmount);
+  let rupeeAmount = roundOff(cryptoAmount * ETH_USD * USD_INR);
 
   return (
     <View style={styles.row}>
