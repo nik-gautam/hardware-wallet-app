@@ -89,9 +89,12 @@ export const sendTransaction = createAsyncThunk(
 
       console.log(transaction);
 
+      const balance = await wallet.getBalance();
+
       return {
         success: true,
         transaction,
+        balance: formatEther(balance),
       };
     } catch (error) {
       console.log(error);
@@ -167,6 +170,7 @@ const walletSlice = createSlice({
       .addCase(sendTransaction.fulfilled, (state, action) => {
         state.loading.sendTransaction = false;
         state.lastTxn = action.payload.transaction;
+        state.balance = action.payload.balance;
       });
   },
 });

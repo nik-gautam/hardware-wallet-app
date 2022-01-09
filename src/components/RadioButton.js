@@ -37,7 +37,7 @@ const RadioButton = ({ setFeeLevel }) => {
       id: 1,
       name: "High",
       time: 15,
-      fee: 2.000001,
+      fee: 2.0,
     },
     {
       id: 2,
