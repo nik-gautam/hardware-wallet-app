@@ -40,7 +40,7 @@ export const restoreWallet = createAsyncThunk(
       let address = await newWallet.getAddress();
       let balance = await newWallet.getBalance();
 
-      console.log(newWallet, address, formatEther(balance));
+      // console.log(newWallet, address, formatEther(balance));
 
       return {
         wallet: newWallet,

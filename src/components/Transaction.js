@@ -4,6 +4,7 @@ import { Colours } from "../../assets/colours/Colours";
 import moment from "moment";
 import { useGetUSDQuery } from "../apis/etherscan";
 import { useGetUSDtoINRQuery } from "../apis/currency";
+import { useSelector } from "react-redux";
 
 let roundOff = (num) => {
   return Math.round((num + Number.EPSILON) * 100) / 100;
@@ -11,6 +12,7 @@ let roundOff = (num) => {
 
 const Transaction = ({ data }) => {
   const { to, timeStamp, value } = data;
+  const { address } = useSelector((state) => state.wallet);
 
   let toAddress = to;
   let date = moment.unix(timeStamp).format("llll");
@@ -47,6 +49,14 @@ const Transaction = ({ data }) => {
 
   let rupeeAmount = roundOff(cryptoAmount * ETH_USD * USD_INR);
 
+  if (address === "") {
+    return (
+      <View>
+        <Text>Error in Loading Account</Text>
+      </View>
+    );
+  }
+
   return (
     <View style={styles.row}>
       <View style={styles.detailsAddressDate}>
@@ -55,9 +65,16 @@ const Transaction = ({ data }) => {
       </View>
 
       <View style={styles.detailsAmount}>
-        <View style={styles.amount}>
-          <Text style={styles.crypto}>ETH {cryptoAmount}</Text>
-        </View>
+        {String(address).toLowerCase() != to ? (
+          <View style={styles.amount}>
+            <Text style={styles.sendCrypto}> - ETH {cryptoAmount}</Text>
+          </View>
+        ) : (
+          <View style={styles.amount}>
+            <Text style={styles.receiveCrypto}> + ETH {cryptoAmount}</Text>
+          </View>
+        )}
+
         <View style={styles.amount}>
           <Text style={styles.rupee}> &#8377; {rupeeAmount}</Text>
         </View>
@@ -80,9 +97,16 @@ const styles = StyleSheet.create({
     alignItems: "flex-end",
     marginVertical: 4,
   },
-  crypto: {
+  sendCrypto: {
     marginLeft: 4,
-    color: "black",
+    color: Colours.Red,
+    fontFamily: "inter-regular",
+    fontWeight: "normal",
+    fontSize: 15,
+  },
+  receiveCrypto: {
+    marginLeft: 4,
+    color: Colours.Green,
     fontFamily: "inter-regular",
     fontWeight: "normal",
     fontSize: 15,

@@ -74,6 +74,7 @@ const styles = StyleSheet.create({
     flex: 1,
     // borderWidth: 1,
     // borderColor: "red",
+    marginHorizontal: 5
   },
   title: {
     // borderWidth: 1,
