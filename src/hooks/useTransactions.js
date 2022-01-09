@@ -8,27 +8,23 @@ export default () => {
   const [results, setResults] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
 
-  // const { data, isLoading, isError } = useGetTransactionsQuery({
-  //   address: "0xddbd2b932c763ba5b1b7ae3b362eac3e8d40121a",
-  //   offset: 10,
-  // });
+  // const { data, isLoading, isError, refetch, isFetching } =
+  //   useGetTransactionsQuery({
+  //     address: "0xddbd2b932c763ba5b1b7ae3b362eac3e8d40121a",
+  //     offset: 10,
+  //   });
 
-  const { data, isLoading, isError, isFetching } = useGetTransactionsQuery(
-    {
+  const { data, isLoading, isError, refetch, isFetching } =
+    useGetTransactionsQuery({
       address,
       offset: 10,
-    },
-    {
-      refetchOnFocus: true,
-      refetchOnMountOrArgChange: true,
-    }
-  );
+    });
+
+  console.log("isFetching --> " + isFetching);
 
   let transactions = [];
 
-  console.log("isFetching", isFetching);
-
-  if (isError || isLoading || isFetching) {
+  if (isError || isLoading) {
     // error occurred
   } else {
     transactions = data;
@@ -46,6 +42,7 @@ export default () => {
   };
 
   useEffect(() => {
+    refetch();
     searchTransactions("");
   }, []);
 
