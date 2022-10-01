@@ -52,10 +52,10 @@ const WordCellInput = ({
   //   };
 
   let onChange = async (index, value) => {
-    console.log(index + " --> " + value);
+    // console.log(index + " --> " + value);
 
     await changeSequence(index, value);
-    console.log(inputSequence);
+    // console.log(inputSequence);
 
     let flag = true;
     inputSequence.forEach((word) => {
@@ -74,11 +74,11 @@ const WordCellInput = ({
   return (
     <View style={styles.wordCell}>
       <View style={styles.cellNumber}>
-        <Text style={styles.bold}> {index + 1} </Text>
+        <Text style={[styles.bold, styles.cellText]}> {index + 1} </Text>
       </View>
       <View style={styles.word}>
         <TextInput
-          style={[styles.bold,styles.textInput]}
+          style={[styles.bold, styles.textInput, styles.cellText]}
           onChangeText={(text) => onChange(index, text)}
           placeholder="Type..."></TextInput>
       </View>
@@ -98,6 +98,7 @@ const styles = StyleSheet.create({
   cellNumber: {
     flex: 1,
     alignItems: "center",
+    justifyContent: "center",
     padding: 10,
     backgroundColor: Colours.Neutral_4,
     borderTopLeftRadius: 10,
@@ -119,6 +120,9 @@ const styles = StyleSheet.create({
   },
   textInput: {
     alignSelf: "stretch",
+  },
+  cellText: {
+    fontSize: 12,
   },
 });
 

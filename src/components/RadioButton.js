@@ -9,28 +9,47 @@ import {
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { Colours } from "../../assets/colours/Colours";
+import { useGetGasPriceQuery } from "../apis/etherscan";
 
 const RadioButton = ({ setFeeLevel }) => {
   let [isSelected, setSelected] = useState([false, true, false]);
+
+  // const { data, isLoading, isError } = useGetGasPriceQuery();
+
+  // if (isError) {
+  //   return (
+  //     <View style={styles.container}>
+  //       <Text> Error in Getting Gas Price </Text>
+  //     </View>
+  //   );
+  // }
+
+  // if (isLoading) {
+  //   return (
+  //     <View style={styles.container}>
+  //       <Text> Loading.... </Text>
+  //     </View>
+  //   );
+  // }
 
   let levels = [
     {
       id: 1,
       name: "High",
       time: 15,
-      fee: 0.000042,
+      fee: 2.0,
     },
     {
       id: 2,
       name: "Medium",
       time: 30,
-      fee: 0.000032,
+      fee: 1.500001,
     },
     {
       id: 3,
       name: "Low",
       time: 45,
-      fee: 0.000021,
+      fee: 1.000001,
     },
   ];
 
@@ -69,8 +88,8 @@ const RadioButton = ({ setFeeLevel }) => {
             </View>
 
             <View style={styles.radioText}>
-              <Text style={styles.radioLevelName}>ETH {level.fee}</Text>
-              <Text style={styles.radioLevelAmount}> &#8377; 10 </Text>
+              <Text style={styles.radioLevelName}>{level.fee} Gwei</Text>
+              {/* <Text style={styles.radioLevelAmount}> &#8377; 10 </Text> */}
             </View>
           </View>
         </View>

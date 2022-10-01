@@ -1,13 +1,48 @@
 import React from "react";
+import { useState } from "react";
 import { View, Text, StyleSheet, TextInput } from "react-native";
 import { Colours } from "../../../assets/colours/Colours";
 import SingleButtonFilled from "../../components/SingleButtonFilled";
+import bcrypt from "react-native-bcrypt";
+import isaac from "isaac";
+import { useDispatch, useSelector } from "react-redux";
+import { setPinHash } from "../../reducers/pin";
 
 const PinChoice = ({ navigation }) => {
-  let onPress = () => {
+  const [pin, setPin] = useState("");
+  const [confirmPin, setConfirmPin] = useState("");
+  const [isError, setIsError] = useState(false);
+
+  const { wallet } = useSelector((state) => state.wallet);
+
+  // console.log(wallet);
+
+  const dispatch = useDispatch();
+
+  let onPress = async () => {
     // check PIN logic
 
-    navigation.navigate("WalletSetupSuccess");
+    console.log(pin, confirmPin);
+
+    if (pin !== confirmPin) {
+      setIsError(true);
+    } else {
+      setIsError(false);
+
+      bcrypt.setRandomFallback((len) => {
+        const buf = new Uint8Array(len);
+
+        return buf.map(() => Math.floor(isaac.random() * 256));
+      });
+
+      let salt = bcrypt.genSaltSync(10);
+
+      let pinHash = bcrypt.hashSync(pin, salt);
+
+      dispatch(setPinHash({ hash: pinHash, pin }));
+
+      navigation.navigate("WalletSetupSuccess");
+    }
   };
 
   return (
@@ -25,6 +60,7 @@ const PinChoice = ({ navigation }) => {
         secureTextEntry={true}
         letterSpacing={15}
         maxLength={6}
+        onChangeText={setPin}
       />
 
       <Text style={styles.label}>Re-enter PIN:</Text>
@@ -34,9 +70,17 @@ const PinChoice = ({ navigation }) => {
         secureTextEntry={true}
         letterSpacing={15}
         maxLength={6}
+        onChangeText={setConfirmPin}
       />
 
-      <SingleButtonFilled text="Submit" onPress={onPress} />
+      {isError && <Text style={styles.errorMessage}>Pins don't match!</Text>}
+
+      <SingleButtonFilled
+        text="Submit"
+        onPress={() => {
+          onPress();
+        }}
+      />
     </View>
   );
 };
@@ -69,6 +113,11 @@ const styles = StyleSheet.create({
   },
   label: {
     marginBottom: 5,
+  },
+  errorMessage: {
+    color: "red",
+    fontFamily: "inter-regular",
+    fontSize: 14,
   },
 });
 

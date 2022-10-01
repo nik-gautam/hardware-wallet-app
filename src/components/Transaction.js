@@ -1,24 +1,80 @@
 import React from "react";
-import { View, Text, StyleSheet, Image } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { Colours } from "../../assets/colours/Colours";
+import moment from "moment";
+import { useGetUSDQuery } from "../apis/etherscan";
+import { useGetUSDtoINRQuery } from "../apis/currency";
+import { useSelector } from "react-redux";
+
+let roundOff = (num) => {
+  return Math.round((num + Number.EPSILON) * 100) / 100;
+};
 
 const Transaction = ({ data }) => {
-  const { name, imageURL, date, cryptoAmount, rupeeAmount } = data;
+  const { to, timeStamp, value } = data;
+  const { address } = useSelector((state) => state.wallet);
 
-  //   console.log(data);
+  let toAddress = to;
+  let date = moment.unix(timeStamp).format("llll");
+
+  let cryptoAmount = value / 1e18;
+
+  let {
+    data: ETH_USD,
+    isLoading: isLoading1,
+    isError: isError1,
+    error: error1,
+  } = useGetUSDQuery();
+  let {
+    data: USD_INR,
+    isLoading: isLoading2,
+    isError: isError2,
+    error: error2,
+  } = useGetUSDtoINRQuery();
+
+  if (isLoading1 || isLoading2) {
+    return <Text>Loading...</Text>;
+  } else if (isError1 || isError2) {
+    console.log("===== error 1 ======");
+    console.log(error1);
+
+    console.log("===== error 2 ======");
+    console.log(error2);
+
+    return <Text>Error occurred...</Text>;
+  }
+
+  ETH_USD = ETH_USD.ethusd;
+  USD_INR = USD_INR.rates.INR;
+
+  let rupeeAmount = roundOff(cryptoAmount * ETH_USD * USD_INR);
+
+  if (address === "") {
+    return (
+      <View>
+        <Text>Error in Loading Account</Text>
+      </View>
+    );
+  }
+
   return (
     <View style={styles.row}>
-      <Image source={{ uri: imageURL }} style={styles.image} />
-
-      <View style={styles.detailsNameDate}>
-        <Text style={styles.detailsName}>{name}</Text>
+      <View style={styles.detailsAddressDate}>
+        <Text style={styles.detailsName}>{toAddress}</Text>
         <Text style={styles.detailsDate}>{date}</Text>
       </View>
 
       <View style={styles.detailsAmount}>
-        <View style={styles.amount}>
-          <Text style={styles.crypto}>ETH {cryptoAmount}</Text>
-        </View>
+        {String(address).toLowerCase() != to ? (
+          <View style={styles.amount}>
+            <Text style={styles.sendCrypto}> - ETH {cryptoAmount}</Text>
+          </View>
+        ) : (
+          <View style={styles.amount}>
+            <Text style={styles.receiveCrypto}> + ETH {cryptoAmount}</Text>
+          </View>
+        )}
+
         <View style={styles.amount}>
           <Text style={styles.rupee}> &#8377; {rupeeAmount}</Text>
         </View>
@@ -41,9 +97,16 @@ const styles = StyleSheet.create({
     alignItems: "flex-end",
     marginVertical: 4,
   },
-  crypto: {
+  sendCrypto: {
     marginLeft: 4,
-    color: "black",
+    color: Colours.Red,
+    fontFamily: "inter-regular",
+    fontWeight: "normal",
+    fontSize: 15,
+  },
+  receiveCrypto: {
+    marginLeft: 4,
+    color: Colours.Green,
     fontFamily: "inter-regular",
     fontWeight: "normal",
     fontSize: 15,
@@ -54,20 +117,13 @@ const styles = StyleSheet.create({
     fontFamily: "inter-light",
     fontSize: 12,
   },
-  image: {
-    flex: 2,
-    height: 50,
-    width: 50,
-    // borderWidth: 1,
-    // borderColor: "red",
-  },
   detailsAmount: {
     flex: 3,
     alignItems: "flex-end",
     // borderWidth: 1,
     // borderColor: "blue",
   },
-  detailsNameDate: {
+  detailsAddressDate: {
     flex: 6,
     padding: 5,
     // borderWidth: 1,

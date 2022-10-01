@@ -4,7 +4,6 @@ import { Colours } from "../../../assets/colours/Colours";
 import SingleButtonFilled from "./../../components/SingleButtonFilled";
 import { useDispatch, useSelector } from "react-redux";
 import { setMnemonic } from "../../reducers/onboarding";
-import getTransactions from "../../api/getTransactions";
 
 const RestoreError = ({ navigation }) => {
   // const dispatch = useDispatch();

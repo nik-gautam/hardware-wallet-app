@@ -4,8 +4,12 @@ import { Colours } from "../../../assets/colours/Colours";
 import SingleButtonFilled from "./../../components/SingleButtonFilled";
 import { SimpleLineIcons } from "@expo/vector-icons";
 import { NavigationContainer } from "@react-navigation/native";
+import { useDispatch } from "react-redux";
+import { setIsLoggedIn } from "../../reducers/wallet";
 
 const WalletSetupSuccess = ({ navigation }) => {
+  const dispatch = useDispatch();
+
   return (
     <View style={styles.container}>
       <SimpleLineIcons
@@ -23,7 +27,10 @@ const WalletSetupSuccess = ({ navigation }) => {
       <SingleButtonFilled
         text="Continue"
         style={styles.button}
-        onPress={() => navigation.navigate("EnterPin")}
+        onPress={() => {
+          dispatch(setIsLoggedIn());
+          navigation.navigate("EnterPin");
+        }}
       />
     </View>
   );

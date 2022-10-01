@@ -8,14 +8,14 @@ const Cover = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <FontAwesome5
-        name="bitcoin"
+        name="ethereum"
         size={100}
         color={Colours.Orange}
         style={styles.icon}
       />
-      <Text style={styles.title}>Hardware Wallet</Text>
+      <Text style={styles.title}>Just Wallet</Text>
       <Text style={styles.description}>
-        A simple bitcoin wallet for your enjoyment.
+        A simple Ethereum wallet for your enjoyment.
       </Text>
       <SingleButtonFilled
         text="Create a new wallet"
@@ -23,8 +23,7 @@ const Cover = ({ navigation }) => {
       />
       <TouchableOpacity
         style={styles.restoreWallet}
-        onPress={()=>navigation.navigate("RestoreIntro")}
-        >
+        onPress={() => navigation.navigate("RestoreIntro")}>
         <Text style={styles.restoreWalletText}>Restore existing wallet</Text>
       </TouchableOpacity>
     </View>

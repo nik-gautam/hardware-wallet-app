@@ -60,8 +60,8 @@ const WordCellValidation = ({ index, item, setTitle, setStatus }) => {
 const styles = StyleSheet.create({
   wordCell: {
     flex: 1 / 2,
-    borderColor: "blue",
-    borderWidth: 1,
+    // borderColor: "blue",
+    // borderWidth: 1,
     flexDirection: "row",
     borderRadius: 10,
     margin: 10,

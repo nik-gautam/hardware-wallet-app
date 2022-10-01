@@ -7,23 +7,24 @@ import { FontAwesome } from "@expo/vector-icons";
 import { Text } from "react-native-elements";
 import { Colours } from "../../assets/colours/Colours";
 import useTransactions from "../hooks/useTransactions";
+import { useSelector } from "react-redux";
 
-const Home = () => {
+const Home = ({ navigation }) => {
   const [search, updateSearch] = useState("");
   const [searchTransactions, results, errorMessage] = useTransactions();
 
-  console.log("RESULTS --> " + results.length);
+  const { isLoggedIn, balance, address } = useSelector((state) => state.wallet);
+
+  console.log("isLoggedIn", isLoggedIn);
 
   return (
     <View style={styles.container}>
       <View style={styles.wallet}>
         <StatusBar style="auto" />
-        <Text style={styles.walletName}>Wallet name</Text>
+        <Text style={styles.walletBalanceTitle}>Wallet Balance</Text>
+
         <View style={styles.balance}>
-          <Text style={styles.crypto}>ETH 1.62402785</Text>
-        </View>
-        <View style={styles.balance}>
-          <Text style={styles.rupee}>&#8377; 7645060.27</Text>
+          <Text style={styles.crypto}>ETH {balance}</Text>
         </View>
       </View>
 
@@ -41,11 +42,14 @@ const Home = () => {
       <FlatList
         style={styles.transactions}
         data={results}
-        keyExtractor={(result) => result.id}
+        keyExtractor={(result) => result.blockHash}
         showsVerticalScrollIndicator={false}
-        renderItem={({ item }) => {
+        renderItem={({ item, index }) => {
           return (
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate("TransactionDetail", { data: item, index });
+              }}>
               <Transaction data={item} />
             </TouchableOpacity>
           );
@@ -80,17 +84,17 @@ const styles = StyleSheet.create({
     color: "white",
   },
   crypto: {
-    fontSize: 24,
+    fontSize: 18,
     marginTop: 10,
     fontFamily: "inter-medium",
     fontWeight: "600",
     color: "white",
   },
-  walletName: {
+  walletBalanceTitle: {
     color: "white",
     fontFamily: "inter-regular",
     fontWeight: "400",
-    fontSize: 15,
+    fontSize: 24,
     marginVertical: 5,
   },
   wallet: {

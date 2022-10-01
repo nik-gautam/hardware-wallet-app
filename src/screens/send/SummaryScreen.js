@@ -2,17 +2,48 @@ import moment from "moment";
 import React from "react";
 import { View, StyleSheet, Button, Pressable } from "react-native";
 import { Text } from "react-native-elements";
+import { useDispatch, useSelector } from "react-redux";
 import { Colours } from "../../../assets/colours/Colours";
+import { sendTransaction } from "../../reducers/wallet";
 
 const SummaryScreen = ({ navigation, route }) => {
+  const dispatch = useDispatch();
+  const { wallet, mnemonic, loading } = useSelector((state) => state.wallet);
+
+  // console.log("wallet from txn summary", wallet);
+
   let data = {
     amount: route.params.amount,
     address: route.params.address,
-    feeLevel: route.params.feeLevel,
+    fee: route.params.fee,
+  };
+
+  let onPress = () => {
+    console.log("pre-send data", {
+      receiver: data.address,
+      amount: data.amount,
+      gas: parseFloat(data.fee),
+      wallet,
+      mnemonic: mnemonic.join(" "),
+    });
+
+    dispatch(
+      sendTransaction({
+        receiver: data.address,
+        amount: data.amount,
+        gas: parseFloat(data.fee),
+        wallet,
+        mnemonic: mnemonic.join(" "),
+      })
+    );
+
+    navigation.navigate("TransactionComplete");
   };
 
   const todayDate = moment(Date.now()).format("MMM DD, YYYY");
   const todayTime = moment(Date.now()).format("hh:mm A");
+
+  // console.log(data);
 
   return (
     <View style={styles.container}>
@@ -31,7 +62,7 @@ const SummaryScreen = ({ navigation, route }) => {
 
         <View style={styles.row}>
           <Text style={styles.key}>Fee</Text>
-          <Text style={styles.value}>{data.feeLevel.fee} ETH</Text>
+          <Text style={styles.value}>{data.fee} Gwei</Text>
         </View>
 
         <View style={styles.row}>
@@ -42,9 +73,13 @@ const SummaryScreen = ({ navigation, route }) => {
         </View>
       </View>
 
+      {/* {loading.sendTransaction && <Text> Sending Txn </Text>} */}
+
       <Pressable
         style={styles.continueButton}
-        onPress={() => navigation.navigate("TransactionComplete")}
+        onPress={() => {
+          onPress();
+        }}
       >
         <Text style={styles.continueButtonText}> Continue </Text>
       </Pressable>

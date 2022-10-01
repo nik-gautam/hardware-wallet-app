@@ -1,10 +1,49 @@
 import React from "react";
-import { View, StyleSheet, TouchableOpacity, Pressable } from "react-native";
+import {
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  Pressable,
+  Linking,
+} from "react-native";
 import { Text } from "react-native-elements";
 import { FontAwesome } from "@expo/vector-icons";
 import { Colours } from "../../../assets/colours/Colours";
+import { useSelector } from "react-redux";
+import { Alert } from "react-native";
+import { useCallback } from "react";
+
+const URLButton = ({ url, navigation }) => {
+  const handlePress = useCallback(async () => {
+    const supported = await Linking.canOpenURL(url);
+
+    if (supported) {
+      await Linking.openURL(url);
+    } else {
+      Alert.alert(`Don't know how to open this URL: ${url}`);
+    }
+
+    // navigation.popToTop();
+    // navigation.navigate("Home");
+  }, [url]);
+
+  return (
+    <Pressable
+      style={[styles.button, styles.transaction]}
+      onPress={handlePress}
+    >
+      <Text style={[styles.buttonText, { color: Colours.Black }]}>
+        View transaction
+      </Text>
+    </Pressable>
+  );
+};
 
 const TransactionCompleteScreen = ({ navigation }) => {
+  const { lastTxn } = useSelector((state) => state.wallet);
+
+  console.log("lastTxn", lastTxn);
+
   return (
     <View style={styles.container}>
       <View style={styles.transactionMessage}>
@@ -17,22 +56,17 @@ const TransactionCompleteScreen = ({ navigation }) => {
         </Text>
       </View>
       <View style={styles.buttonGroup}>
-        <Pressable
-          style={[styles.button, styles.transaction]}
-          onPress={() => {
-            navigation.popToTop();
-            navigation.navigate("Home");
-          }}>
-          <Text style={[styles.buttonText, { color: Colours.Black }]}>
-            View transaction
-          </Text>
-        </Pressable>
+        <URLButton
+          url={`https://rinkeby.etherscan.io/tx/${lastTxn.hash}`}
+          navigation={navigation}
+        />
         <Pressable
           style={[styles.button, styles.home]}
           onPress={() => {
             navigation.popToTop();
             navigation.navigate("Home");
-          }}>
+          }}
+        >
           <Text style={styles.buttonText}> Done </Text>
         </Pressable>
       </View>

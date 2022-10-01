@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet, FlatList } from "react-native";
+import { View, Text, StyleSheet, FlatList ,ScrollView} from "react-native";
 import { Colours } from "../../../assets/colours/Colours";
 import SingleButtonFilled from "./../../components/SingleButtonFilled";
 import { useDispatch, useSelector } from "react-redux";
 import { setError } from "../../reducers/onboarding";
 import WordCellInput from "../../components/WordCellInput";
+import { restoreWallet } from "../../reducers/wallet";
 
 const RestoreValidate = ({ navigation, route }) => {
   //   const dispatch = useDispatch();
   const { mnemonic, error, random } = useSelector((state) => state.onboarding);
+  const dispatch = useDispatch();
 
   let words = [...mnemonic];
 
@@ -31,7 +33,12 @@ const RestoreValidate = ({ navigation, route }) => {
   let onPress = () => {
     // pending
     let userSequence = [...inputSequence];
-    // check if valid sequence
+
+    let userMnemonic = userSequence.join(" ");
+
+    console.log(userMnemonic);
+
+    dispatch(restoreWallet(userMnemonic));
 
     // IF VALID THEN NAVIGATE
     navigation.navigate("WalletPinChoice");
@@ -48,7 +55,7 @@ const RestoreValidate = ({ navigation, route }) => {
         </Text>
       </View>
 
-      <View style={styles.wordsContainer}>
+      <ScrollView style={styles.wordsContainer}>
         <FlatList
           style={styles.words}
           data={words}
@@ -64,7 +71,7 @@ const RestoreValidate = ({ navigation, route }) => {
           keyExtractor={(item, index) => index}
           numColumns={2}
         />
-      </View>
+      </ScrollView>
 
       <SingleButtonFilled
         text="Continue"

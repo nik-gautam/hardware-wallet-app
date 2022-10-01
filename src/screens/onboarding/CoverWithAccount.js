@@ -9,12 +9,12 @@ const CoverWithAccount = ({ navigation }) => {
     <View style={styles.container}>
       <View style={styles.upper}>
         <FontAwesome5
-          name="bitcoin"
+          name="ethereum"
           size={100}
           color={Colours.Orange}
           style={styles.icon}
         />
-        <Text style={styles.title}> Hardware Wallet </Text>
+        <Text style={styles.title}> Just Wallet </Text>
         <Text style={styles.description}>Welcome back.</Text>
         <SingleButtonFilled
           text="Log in"
